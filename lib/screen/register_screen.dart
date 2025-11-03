@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:projectuas/screen/login_screen.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,8 +58,34 @@ class RegisterScreen extends StatelessWidget {
               child: Icon(Icons.person, size: 40,),
             ),
             SizedBox(height: 20,),
-            Text("Email"),
-            Input
+            TextFormField(
+              controller : _emailController,
+              style: TextStyle(
+                color: Colors.white
+              ),
+              decoration: InputDecoration(
+                  labelText: "Username",
+                  labelStyle: TextStyle(
+                    color : Colors.white
+                  ),
+                  border: OutlineInputBorder(),
+                ),
+            ),
+            SizedBox(height: 16,),
+            TextFormField(
+              controller : _passwordController,
+              style : TextStyle(
+                color: Colors.white
+              ),
+              decoration: InputDecoration(
+                labelText: "Password",
+                labelStyle: TextStyle(
+                  color: Colors.white
+                ),
+                border: OutlineInputBorder()
+              ),
+            )
+            
           ],
         ),
       ),
