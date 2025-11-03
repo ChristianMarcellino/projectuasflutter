@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:projectuas/screen/home_screen.dart';
 import 'package:projectuas/screen/register_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -17,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _timer = Timer(Duration(seconds: 3), (){
+    _timer = Timer(Duration(seconds: 1), (){
       Navigator.push(
           context,
           MaterialPageRoute(builder: (context)=> RegisterScreen()));
@@ -26,14 +25,15 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black87,
       body : Center(
         child: Container(
           padding: EdgeInsets.all(8),
-          decoration: BoxDecoration(color: Colors.lightBlue, shape: BoxShape.circle),
+          decoration: BoxDecoration(shape: BoxShape.circle),
           child: ClipOval(
             child: SizedBox.fromSize(
               size: Size.fromRadius(48), // Image radius
-              child: Image.network('https://e7.pngegg.com/pngimages/134/63/png-clipart-ipod-touch-app-store-apple-widget-random-icons-angle-logo-thumbnail.png', fit: BoxFit.cover),
+              child: Image.network('https://s3-alpha.figma.com/hub/file/2721803157/3f021816-bde1-4634-80b3-52d7f762bc6b-cover.png', fit: BoxFit.cover),
             ),
           ),
         ),
