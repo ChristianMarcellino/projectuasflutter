@@ -2,27 +2,46 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projectuas/screen/register_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black87,
-      body : Container(
+      backgroundColor: Color(0xFF030712),
+      body : SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsetsGeometry.all(8.0),
           child: Column(
             children: [
-              Text("data", style: TextStyle(color: Colors.white),),
-              Text("data", style: TextStyle(color: Colors.white)),
-              Text("data", style: TextStyle(color: Colors.white)),
-              ElevatedButton(onPressed: (){
-                Navigator.push(context,
-                MaterialPageRoute(builder: (context) => RegisterScreen()));
-              }, child: Text("data"))
+              Container(
+                alignment: AlignmentDirectional.topStart,
+                width: MediaQuery.sizeOf(context).width,
+                decoration: BoxDecoration(
+                  color: Color(0xFF111827)
+                ),
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: AlignmentDirectional.topStart,
+                      child: Text("Library", style: TextStyle(color: Colors.white,fontSize: 16),),
+                    ),
+                    Align(
+                      alignment: AlignmentDirectional.topStart,
+                      child : Text("Explore our collection", style: TextStyle(color: Colors.white),)
+                    ),
+                    SearchAnchor(builder: BuildContext context, suggestionsBuilder: suggestionsBuilder)
+                  ],
+                ),
+              )
+
             ],
-          ),
+          )
         ),
       )
     );
