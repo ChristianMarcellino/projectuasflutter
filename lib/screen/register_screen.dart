@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:projectuas/screen/login_screen.dart';
+import 'package:projectuas/screen/ui/custom_form_field.dart';
+import 'package:projectuas/screen/ui/button.dart';
+import 'package:projectuas/screen/ui/redirect_button.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -28,7 +30,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               borderRadius: BorderRadius.all(Radius.circular(8)),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(12.0),
+              padding: const EdgeInsets.all(18.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -48,97 +50,66 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     alignment: AlignmentGeometry.center,
                     child: Text(
                       "Enter your email to sign up for this app",
-                      style: TextStyle(color: Color(0xFF9CA3AF)),
+                      style: TextStyle(color: Color(0xFF6B7280)),
                     ),
                   ),
 
                   SizedBox(height: 20),
-                  Text(
-                    "Email",
-                    style: TextStyle(color: Color(0xFFD1D5DB), fontSize: 16),
-                  ),
-                  SizedBox(height: 4),
-                  TextFormField(
+                  CustomFormField(
+                    label: "Email",
                     controller: _emailController,
-                    style: TextStyle(color: Color(0xFFD1D5DB)),
-                    decoration: InputDecoration(
-                      hintText: "Enter your email",
-                      hintStyle: TextStyle(color: Color(0xFF9CA3AF)),
-                      fillColor: Color(0xFF1F2937),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                      ),
-                    ),
+                    hint: "Enter your email",
                   ),
-                  SizedBox(height: 4),
-                  Text(
-                    "Username",
-                    style: TextStyle(color: Color(0xFFD1D5DB), fontSize: 16),
-                  ),
-                  SizedBox(height: 4),
-                  TextFormField(
+
+                  SizedBox(height: 8),
+                  CustomFormField(
+                    label: "Username",
                     controller: _usernameController,
-                    style: TextStyle(color: Color(0xFFD1D5DB)),
-                    decoration: InputDecoration(
-                      hintText: "Enter your name",
-                      hintStyle: TextStyle(color: Color(0xFF9CA3AF)),
-                      fillColor: Color(0xFF1F2937),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                      ),
-                    ),
+                    hint: "Enter your name",
                   ),
-                  Text(
-                    "Password",
-                    style: TextStyle(color: Color(0xFFD1D5DB), fontSize: 16),
-                  ),
-                  SizedBox(height: 4),
-                  TextFormField(
+
+                  SizedBox(height: 8),
+                  CustomFormField(
+                    label: "Password",
                     controller: _passwordController,
-                    style: TextStyle(color: Color(0xFFD1D5DB)),
-                    decoration: InputDecoration(
-                      hintText: "Create a password",
-                      hintStyle: TextStyle(color: Color(0xFF9CA3AF)),
-                      fillColor: Color(0xFF1F2937),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(16)),
+                    hint: "Enter your password",
+                  ),
+
+                  SizedBox(height: 16),
+                  Center(
+                    child: Container(
+                      width: MediaQuery.sizeOf(context).width,
+                      child: Button(
+                        icon: Icons.create,
+                        title: "Create Account",
+                        onPressed: () {},
                       ),
                     ),
                   ),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: 
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LoginScreen(),
-                        ),
-                      );
-                    },
-                    child: Text("Wawan"),
+
+                  SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Expanded(child: Divider()),
+                      Text(
+                        "  Already have an account?  ",
+                        style: TextStyle(color: Color(0xFF6B7280)),
+                      ),
+                      Expanded(child: Divider()),
+                    ],
                   ),
-                  // Align(
-                  //   alignment: AlignmentGeometry.topRight,
-                  //   child: TextButton(
-                  //     onPressed: () {
-                  //       Navigator.push(
-                  //         context,
-                  //         MaterialPageRoute(
-                  //           builder: (context) => const LoginScreen(),
-                  //         ),
-                  //       );
-                  //     },
-                  //     style: TextButton.styleFrom(
-                  //       foregroundColor: Colors.white54,
-                  //       textStyle: TextStyle(
-                  //         decoration: TextDecoration.underline,
-                  //       ),
-                  //     ),
-                  //     child: Text("Sign in"),
-                  //   ),
-                  // ),
+                  SizedBox(height: 16),
+
+                  Center(
+                    child: Container(
+                      width: MediaQuery.sizeOf(context).width,
+                      child: RedirectButton(
+                        icon: Icons.login,
+                        title: "Sign In",
+                        destination: LoginScreen(),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
