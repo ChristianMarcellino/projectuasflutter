@@ -11,82 +11,138 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black87,
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Align(
-              alignment: AlignmentGeometry.topRight,
-              child: TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LoginScreen(),
-                    ),
-                  );
-                },
-                style: TextButton.styleFrom(
-                  foregroundColor: Colors.white54,
-                  textStyle: TextStyle(decoration: TextDecoration.underline),
-                ),
-                child: Text("Sign in"),
-              ),
+      backgroundColor: Color(0xFF030712),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Color(0xFF111827),
+              border: Border.all(color: Color(0xFF1F2937)),
+              borderRadius: BorderRadius.all(Radius.circular(8)),
             ),
-            SizedBox(height: 16,),
-            Align(
-              alignment: AlignmentGeometry.center,
-              child : Text("Libgen", style: TextStyle(fontSize: 24, color: Colors.white, fontWeight: FontWeight.bold),)
-            ),
-            SizedBox(height: 16,),
-            Align(
-              alignment: AlignmentGeometry.center,
-              child : Text("Create an account", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),)
-            ),
-            Align(
-              alignment: AlignmentGeometry.center,
-              child : Text("Enter your email to sign up for this app", style: TextStyle(color: Colors.white),)
-            ),
-            SizedBox(height: 16,),
-            CircleAvatar(
-              radius: 50,
-              child: Icon(Icons.person, size: 40,),
-            ),
-            SizedBox(height: 20,),
-            TextFormField(
-              controller : _emailController,
-              style: TextStyle(
-                color: Colors.white
-              ),
-              decoration: InputDecoration(
-                  labelText: "Username",
-                  labelStyle: TextStyle(
-                    color : Colors.white
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                    child: Icon(Icons.book, color: Colors.lightBlue, size: 80),
                   ),
-                  border: OutlineInputBorder(),
-                ),
+                  SizedBox(height: 16),
+                  Align(
+                    alignment: AlignmentGeometry.center,
+                    child: Text(
+                      "Join the Library",
+                      style: TextStyle(color: Color(0xFFD1D5DB), fontSize: 16),
+                    ),
+                  ),
+                  Align(
+                    alignment: AlignmentGeometry.center,
+                    child: Text(
+                      "Enter your email to sign up for this app",
+                      style: TextStyle(color: Color(0xFF9CA3AF)),
+                    ),
+                  ),
+
+                  SizedBox(height: 20),
+                  Text(
+                    "Email",
+                    style: TextStyle(color: Color(0xFFD1D5DB), fontSize: 16),
+                  ),
+                  SizedBox(height: 4),
+                  TextFormField(
+                    controller: _emailController,
+                    style: TextStyle(color: Color(0xFFD1D5DB)),
+                    decoration: InputDecoration(
+                      hintText: "Enter your email",
+                      hintStyle: TextStyle(color: Color(0xFF9CA3AF)),
+                      fillColor: Color(0xFF1F2937),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(16)),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    "Username",
+                    style: TextStyle(color: Color(0xFFD1D5DB), fontSize: 16),
+                  ),
+                  SizedBox(height: 4),
+                  TextFormField(
+                    controller: _usernameController,
+                    style: TextStyle(color: Color(0xFFD1D5DB)),
+                    decoration: InputDecoration(
+                      hintText: "Enter your name",
+                      hintStyle: TextStyle(color: Color(0xFF9CA3AF)),
+                      fillColor: Color(0xFF1F2937),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(16)),
+                      ),
+                    ),
+                  ),
+                  Text(
+                    "Password",
+                    style: TextStyle(color: Color(0xFFD1D5DB), fontSize: 16),
+                  ),
+                  SizedBox(height: 4),
+                  TextFormField(
+                    controller: _passwordController,
+                    style: TextStyle(color: Color(0xFFD1D5DB)),
+                    decoration: InputDecoration(
+                      hintText: "Create a password",
+                      hintStyle: TextStyle(color: Color(0xFF9CA3AF)),
+                      fillColor: Color(0xFF1F2937),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(16)),
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: 
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
+                        ),
+                      );
+                    },
+                    child: Text("Wawan"),
+                  ),
+                  // Align(
+                  //   alignment: AlignmentGeometry.topRight,
+                  //   child: TextButton(
+                  //     onPressed: () {
+                  //       Navigator.push(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //           builder: (context) => const LoginScreen(),
+                  //         ),
+                  //       );
+                  //     },
+                  //     style: TextButton.styleFrom(
+                  //       foregroundColor: Colors.white54,
+                  //       textStyle: TextStyle(
+                  //         decoration: TextDecoration.underline,
+                  //       ),
+                  //     ),
+                  //     child: Text("Sign in"),
+                  //   ),
+                  // ),
+                ],
+              ),
             ),
-            SizedBox(height: 16,),
-            TextFormField(
-              controller : _passwordController,
-              style : TextStyle(
-                color: Colors.white
-              ),
-              decoration: InputDecoration(
-                labelText: "Password",
-                labelStyle: TextStyle(
-                  color: Colors.white
-                ),
-                border: OutlineInputBorder()
-              ),
-            )
-            
-          ],
+          ),
         ),
       ),
     );

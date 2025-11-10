@@ -25,16 +25,19 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black87,
+      backgroundColor: Color(0xFF030712),
       body : Center(
         child: Container(
           padding: EdgeInsets.all(8),
-          decoration: BoxDecoration(shape: BoxShape.circle),
-          child: ClipOval(
-            child: SizedBox.fromSize(
-              size: Size.fromRadius(48), // Image radius
-              child: Image.network('https://s3-alpha.figma.com/hub/file/2721803157/3f021816-bde1-4634-80b3-52d7f762bc6b-cover.png', fit: BoxFit.cover),
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.book, color: Colors.lightBlue, size: 80,
+              ),
+              Text("Libgen", style: TextStyle(color: Color(0xFFD1D5DB), fontWeight: FontWeight.bold, fontSize: 30),),
+              Text("Your gateway to knowledge", style: TextStyle(color: Color(0xFF9CA3AF)),)
+            ],
           ),
         ),
       )
