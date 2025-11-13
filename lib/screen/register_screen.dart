@@ -24,6 +24,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Container(
+            height: MediaQuery.sizeOf(context).height,
             decoration: BoxDecoration(
               color: Color(0xFF111827),
               border: Border.all(color: Color(0xFF1F2937)),
