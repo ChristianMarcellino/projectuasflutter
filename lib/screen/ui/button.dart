@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 
 class Button extends StatelessWidget {
   final String title;
-  final IconData icon;
+  final IconData? icon;
   final GestureTapCallback onPressed;
-  const Button({required this.onPressed, required this.icon, required this.title, super.key});
+  const Button({
+    required this.onPressed,
+    this.icon,
+    required this.title,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

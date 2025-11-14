@@ -14,7 +14,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-
+  bool _obscurePassword = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,6 +66,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     label: "Password",
                     controller: _passwordController,
                     hint: "Enter your password",
+                    obscurePassword: _obscurePassword,
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
+                      icon: (_obscurePassword
+                          ? Icon(Icons.visibility_off)
+                          : Icon(Icons.visibility)),
+                    ),
                   ),
 
                   SizedBox(height: 16),

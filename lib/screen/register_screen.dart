@@ -14,8 +14,10 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
-
   final TextEditingController _passwordController = TextEditingController();
+
+  bool _obscurePassword = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,6 +76,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     label: "Password",
                     controller: _passwordController,
                     hint: "Enter your password",
+                    obscurePassword: _obscurePassword,
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _obscurePassword = !_obscurePassword;
+                        });
+                      },
+                      icon: (_obscurePassword
+                          ? Icon(Icons.visibility_off)
+                          : Icon(Icons.visibility)),
+                    ),
                   ),
 
                   SizedBox(height: 16),
