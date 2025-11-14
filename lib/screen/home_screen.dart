@@ -42,22 +42,24 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsetsGeometry.all(8.0),
-          child: Column(
+          child: ListView(
+            scrollDirection: Axis.horizontal,
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Color(0xFF374151)),
-                  color: Color(0xFF1F2937),
-                  borderRadius: BorderRadius.circular(30)
-                ),
-                child: TextButton(
-                  onPressed: () {},
-                  style: TextButton.styleFrom(
-                    foregroundColor: Color(0xFF6B7280)
+              for (int i = 0; i < 5; i++)
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Color(0xFF374151)),
+                    color: Color(0xFF1F2937),
+                    borderRadius: BorderRadius.circular(30),
                   ),
-                  child: Text("All"),
+                  child: TextButton(
+                    onPressed: () {},
+                    style: TextButton.styleFrom(
+                      foregroundColor: Color(0xFF6B7280),
+                    ),
+                    child: Text("All"),
+                  ),
                 ),
-              ),
             ],
           ),
         ),
