@@ -1,15 +1,31 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:projectuas/screen/ui/button.dart';
 
-class MyWidget extends StatefulWidget {
-  const MyWidget({super.key});
+class SaveScreen extends StatefulWidget {
+  const SaveScreen({super.key});
 
   @override
-  State<MyWidget> createState() => _MyWidgetState();
+  State<SaveScreen> createState() => _SaveScreen();
 }
 
-class _MyWidgetState extends State<MyWidget> {
+class _SaveScreen extends State<SaveScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      backgroundColor: Color(0xFF030712),
+      appBar: AppBar(
+        backgroundColor: Color(0xFF111827),
+        title: Text("Saved Books"), titleTextStyle: TextStyle(
+          color: Color(0xFFD1D5DB),
+          fontSize: 20,
+          fontWeight: FontWeight.bold
+        ),
+      ),
+
+      body: Stack(
+        children: [],
+      )
+    );
   }
 }
