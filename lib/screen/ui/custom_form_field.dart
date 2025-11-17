@@ -27,6 +27,7 @@ class CustomFormField extends StatelessWidget {
           controller: controller,
           style: TextStyle(color: Color(0xFFD1D5DB)),
           obscureText: obscurePassword,
+          autofocus: false,
           decoration: InputDecoration(
             hintText: hint,
             hintStyle: TextStyle(color: Color(0xFF6B7280)),
@@ -34,8 +35,13 @@ class CustomFormField extends StatelessWidget {
             suffixIcon: suffixIcon,
             filled: true,
             border: OutlineInputBorder(
+              borderSide: BorderSide(color : Color(0xFF374151)),
               borderRadius: BorderRadius.all(Radius.circular(16)),
             ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Color(0xFF707070)),
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+            )
           ),
         ),
       ],
