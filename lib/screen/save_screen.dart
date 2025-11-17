@@ -24,7 +24,9 @@ class _SaveScreen extends State<SaveScreen> {
       ),
 
       body: Stack(
-        children: [],
+        children: [
+          Button(onPressed: () {}, title: title, icon: Icons.arrow_back,)
+        ],
       )
     );
   }
