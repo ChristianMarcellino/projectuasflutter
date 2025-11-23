@@ -23,11 +23,11 @@ class _SaveScreen extends State<SaveScreen> {
         ),
       ),
 
-      body: Stack(
-        children: [
-          Button(onPressed: () {}, title: title, icon: Icons.arrow_back,)
-        ],
-      )
+      body: SafeArea(
+        child: Padding(
+          
+        ) 
+      ) 
     );
   }
 }
