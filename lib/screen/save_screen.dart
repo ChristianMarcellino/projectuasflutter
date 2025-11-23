@@ -16,18 +16,51 @@ class _SaveScreen extends State<SaveScreen> {
       backgroundColor: Color(0xFF030712),
       appBar: AppBar(
         backgroundColor: Color(0xFF111827),
-        title: Text("Saved Books"), titleTextStyle: TextStyle(
+        title: const Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+        children : [
+          Text("Saved Books", titleTextStyle: TextStyle(
           color: Color(0xFFD1D5DB),
           fontSize: 20,
           fontWeight: FontWeight.bold
         ),
+       ),
+          
+          Text("3 books in your collection", style: 
+               TextStyle(color : Colors.white54, fontSize: 13),           
+        ),
+       ],
       ),
 
-      body: SafeArea(
-        child: Padding(
-          
-        ) 
-      ) 
+        actions: [
+          Icon(Icons.bookmark,
+               color: Colors.purpleAccent, size: 26),
+          SizedBox(width: 16),
+          ],
+      ),
+
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 14),
+              decoration: BoxDecoration(
+                color: const Color(0xFF1A1F32),
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child : const TextField(
+                style: TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  icon: Icon(),
+                  ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
