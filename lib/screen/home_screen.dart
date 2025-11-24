@@ -67,17 +67,26 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Container(
                         decoration: BoxDecoration(
                           border: Border.all(color: Color(0xFF374151)),
-                          gradient: LinearGradient(colors: isActive ? [Color(0xFF9333EA), Color(0xFF2563EB)] : [Color(0xFF1F2937), Color(0xFF1F2937)]),
+                          gradient: LinearGradient(
+                            colors: isActive
+                                ? [Color(0xFF9333EA), Color(0xFF2563EB)]
+                                : [Color(0xFF1F2937), Color(0xFF1F2937)],
+                          ),
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: TextButton(
-                          style: TextButton.styleFrom(foregroundColor: Color(0xFFD1D5DB)),
+                          style: TextButton.styleFrom(
+                            foregroundColor: Color(0xFFD1D5DB),
+                          ),
                           onPressed: () {
                             setState(() {
                               _selectedIndex = index;
                             });
                           },
-                          child: Text(_items[index], style: TextStyle(fontWeight: FontWeight.bold),),
+                          child: Text(
+                            _items[index],
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                     );
@@ -91,46 +100,96 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemBuilder: (context, index) {
                     final book = _items[index];
                     return Card(
+                      elevation: 1,
                       margin: EdgeInsets.all(8),
                       color: Color(0xFF111827),
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Expanded(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            spacing: 20,
-                            children: [
-                              ClipRRect(
-                                child: Image.network(
-                                  "https://picsum.photos/id/237/200/300",
-                                  fit: BoxFit.cover,
-                                  width: 40,
-                                  height: 80,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          spacing: 15,
+                          children: [
+                            Stack(
+                              children: [
+                                ClipRRect(
+                                  child: Image.network(
+                                    "https://marketplace.canva.com/EAGUhHGuQOg/1/0/1003w/canva-orange-and-blue-anime-cartoon-illustrative-novel-story-book-cover-WZE2VIj5AVQ.jpg",
+                                    fit: BoxFit.cover,
+                                    width: 100,
+                                    height: 180,
+                                  ),
                                 ),
-                              ),
-                              Expanded(
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      "anggep buku",
-                                      style: TextStyle(color: Colors.yellow),
+                              ],
+                            ),
+                            Expanded(
+                              child: Column(
+                                spacing: 3,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Judul Buku",
+                                    style: TextStyle(color: Colors.yellow),
+                                  ),
+                                  Text(
+                                    _items[index],
+                                    style: TextStyle(color: Color(0xFF6B7280)),
+                                  ),
+                                  Container(
+                                    color: Colors.black,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: Text(
+                                        "wawan",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
                                     ),
-                                    Text(
-                                      _items[index],
-                                      style: TextStyle(color: Colors.yellow),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                  Row(
+                                    spacing: 5,
+                                    children: [
+                                      Row(
+                                        spacing: 3,
+                                        children: [
+                                          Icon(
+                                            Icons.star,
+                                            color: Colors.yellow,
+                                          ),
+                                          Text(
+                                            "4.8",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        spacing: 3,
+                                        children: [
+                                          Icon(
+                                            Icons.timer,
+                                            color: Color(0xFF6B7280),
+                                          ),
+                                          Text(
+                                            "3222 pages",
+                                            style: TextStyle(
+                                              color: Color(0xFF6B7280),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     );
                   },
                 ),
-              )
+              ),
             ],
           ),
         ),

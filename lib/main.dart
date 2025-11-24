@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:projectuas/screen/home_screen.dart';
+import 'package:projectuas/screen/login_screen.dart';
+import 'package:projectuas/screen/register_screen.dart';
 import 'package:projectuas/screen/splash_screen.dart';
 
 void main() {
@@ -13,6 +16,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      initialRoute: "/",
+      routes : {
+        "/" : (context) =>SplashScreen(),
+        "login" : (context) =>LoginScreen(),
+        "register" : (context) =>RegisterScreen(),
+        "home" : (context) =>HomeScreen(),
+      },
       title: 'Flutter Demo',
       theme: ThemeData(
         elevatedButtonTheme: ElevatedButtonThemeData(
@@ -23,7 +33,6 @@ class MyApp extends StatelessWidget {
         ),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
       ),
-      home: SplashScreen(),
     );
   }
 }
