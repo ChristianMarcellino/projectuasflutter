@@ -16,7 +16,7 @@ class RedirectButton extends StatelessWidget {
       child: ElevatedButton(
         child: Row(mainAxisAlignment: MainAxisAlignment.center,spacing: 2.0, children: [Icon(icon, color: Color(0xFF60A5FA),), Text(title, style: TextStyle(color: Color(0xFF60A5FA)),)],),
         onPressed: () {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => destination),
           );
