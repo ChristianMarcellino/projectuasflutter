@@ -52,13 +52,20 @@ class _SaveScreen extends State<SaveScreen> {
               child : Row (
                 crossAxisAlignment: CrossAxisAlignment.start, 
                 children : [
-                  Text("Kecewa", 
+                  Text("The Great Adventure", 
                     style : const TextStyle(
                       color : Colors.white,
                       fontSize : 10, 
                       fontWeight : FontWeight.bold
                     ),
                   ),
+                  Text ("Sarah Mitchell", 
+                    style : const TextStyle(
+                      color : Colors.grey,
+                      fontSize : 5
+                    ),
+                  ),
+                  Text (""),
                 //hoho
                 ],
               ),
