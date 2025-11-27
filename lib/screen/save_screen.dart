@@ -1,23 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:projectuas/screen/ui/button.dart';
 
 class SaveScreen extends StatefulWidget {
-  final String title;
-  final String author;
-  final String genre;
-  final double rating;
-  final int page;
-  final String savedTime;
-  
-  const SaveScreen({super.key, 
-    required this.title,
-    required this.author,
-    required this.genre,
-    required this.rating,
-    required this.page,
-    required this.savedTime,
-    });
+  const SaveScreen({super.key});
 
   @override
   State<SaveScreen> createState() => _SaveScreen();
@@ -33,7 +18,7 @@ class _SaveScreen extends State<SaveScreen> {
         title: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
         children : [
-          Text("Saved Books", titleTextStyle: TextStyle(
+          Text("Saved Books", style: TextStyle(
           color: Color(0xFFD1D5DB),
           fontSize: 20,
           fontWeight: FontWeight.bold
@@ -67,7 +52,7 @@ class _SaveScreen extends State<SaveScreen> {
               child : Row (
                 crossAxisAlignment: CrossAxisAlignment.start, 
                 children : [
-                  Text(widget.title, 
+                  Text("Kecewa", 
                     style : const TextStyle(
                       color : Colors.white,
                       fontSize : 10, 
