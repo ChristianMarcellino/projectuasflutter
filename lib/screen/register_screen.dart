@@ -3,6 +3,7 @@ import 'package:projectuas/screen/login_screen.dart';
 import 'package:projectuas/screen/ui/custom_form_field.dart';
 import 'package:projectuas/screen/ui/button.dart';
 import 'package:projectuas/screen/ui/redirect_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -15,6 +16,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  String? _errorText;
+
+  void signUp() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String email = _emailController.text.trim();
+    final String username = _usernameController.text.trim();
+    final String password = _passwordController.text.trim();
+
+    if (password.length < 8) {
+      setState(() {
+        _errorText = "Minimal 8 Karakter";
+      });
+    }
+
+    prefs.setString("email", email);
+    prefs.setString("username", username);
+    prefs.setString("password", password);
+
+    return;
+  }
 
   bool _obscurePassword = false;
 
@@ -75,6 +96,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     label: "Password",
                     controller: _passwordController,
                     hint: "Enter your password",
+                    errorText: _errorText,
                     obscurePassword: _obscurePassword,
                     suffixIcon: IconButton(
                       onPressed: () {
@@ -95,7 +117,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: Button(
                         icon: Icons.create,
                         title: "Create Account",
-                        onPressed: () {},
+                        onPressed: () {
+                          signUp();
+                        },
                       ),
                     ),
                   ),

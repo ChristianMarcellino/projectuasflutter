@@ -6,11 +6,13 @@ class CustomFormField extends StatelessWidget {
   final TextEditingController controller;
   final bool obscurePassword;
   final Widget? suffixIcon;
+  final String? errorText;
   const CustomFormField({
     required this.label,
     required this.controller,
     required this.hint,
     this.obscurePassword = false,
+    this.errorText,
     this.suffixIcon,
     super.key,
   });
@@ -33,15 +35,16 @@ class CustomFormField extends StatelessWidget {
             hintStyle: TextStyle(color: Color(0xFF6B7280)),
             fillColor: Color(0xFF1F2937),
             suffixIcon: suffixIcon,
+            errorText: errorText,
             filled: true,
             border: OutlineInputBorder(
-              borderSide: BorderSide(color : Color(0xFF374151)),
+              borderSide: BorderSide(color: Color(0xFF374151)),
               borderRadius: BorderRadius.all(Radius.circular(16)),
             ),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Color(0xFF707070)),
               borderRadius: BorderRadius.all(Radius.circular(16)),
-            )
+            ),
           ),
         ),
       ],
