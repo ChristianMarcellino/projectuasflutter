@@ -65,8 +65,50 @@ class _SaveScreen extends State<SaveScreen> {
                       fontSize : 5
                     ),
                   ),
-                  Text (""),
-                //hoho
+                  Chip (
+                    label: Text(
+                      "Fiction", style: TextSytle(color: Colors.white, fontSize: 12,
+                      ), 
+                    ), 
+                    backgroundColor: Colors.purple, 
+                  ),
+                  Row (
+                    children: [
+                      Icon(
+                        Icons.star, 
+                        color: Colors.yellow, 
+                        size: 18,
+                      ), 
+                      SizedBox(width: 4), 
+                      Text(
+                        "4.8",
+                        style: TextStyle(
+                          color: Colors.white, 
+                          fontSize: 18,
+                          fontweight : FontWeight.bold, 
+                        ), 
+                      ), 
+                      Icon(
+                        Icons.time, 
+                        color: Colors.grey, 
+                        size: 18,
+                      ), 
+                      SizedBox(width: 4), 
+                      Text("342p",
+                          style: TextStyle(
+                            color: Colors.grey, 
+                            fontSize: 18,
+                          ), 
+                      ), 
+                    ], 
+                  ), 
+                  Text("Saved 2 days ago", 
+                      style: TextStyle(
+                        color: Colors.grey, 
+                        fontSize: 18
+                      ), 
+                    ), 
+                
                 ],
               ),
             ),
