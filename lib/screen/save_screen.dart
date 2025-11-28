@@ -49,25 +49,26 @@ class _SaveScreen extends State<SaveScreen> {
                 color: const Color(0xFF1A1F32),
                 borderRadius: BorderRadius.circular(14),
               ),
-              child : Row (
+              child : Column (
                 crossAxisAlignment: CrossAxisAlignment.start, 
                 children : [
                   Text("The Great Adventure", 
                     style : const TextStyle(
                       color : Colors.white,
-                      fontSize : 10, 
+                      fontSize : 20, 
                       fontWeight : FontWeight.bold
                     ),
                   ),
                   Text ("Sarah Mitchell", 
                     style : const TextStyle(
                       color : Colors.grey,
-                      fontSize : 5
+                      fontSize : 15
                     ),
                   ),
                   Chip (
                     label: Text(
-                      "Fiction", style: TextSytle(color: Colors.white, fontSize: 12,
+                      "Fiction", 
+                      style: TextStyle(color: Colors.white, fontSize: 15,
                       ), 
                     ), 
                     backgroundColor: Colors.purple, 
@@ -77,27 +78,27 @@ class _SaveScreen extends State<SaveScreen> {
                       Icon(
                         Icons.star, 
                         color: Colors.yellow, 
-                        size: 18,
+                        size: 15,
                       ), 
                       SizedBox(width: 4), 
                       Text(
                         "4.8",
                         style: TextStyle(
                           color: Colors.white, 
-                          fontSize: 18,
-                          fontweight : FontWeight.bold, 
+                          fontSize: 15,
+                          fontWeight : FontWeight.bold, 
                         ), 
                       ), 
                       Icon(
-                        Icons.time, 
+                        Icons.circle, 
                         color: Colors.grey, 
-                        size: 18,
+                        size: 15,
                       ), 
                       SizedBox(width: 4), 
                       Text("342p",
                           style: TextStyle(
                             color: Colors.grey, 
-                            fontSize: 18,
+                            fontSize: 15,
                           ), 
                       ), 
                     ], 
@@ -105,10 +106,81 @@ class _SaveScreen extends State<SaveScreen> {
                   Text("Saved 2 days ago", 
                       style: TextStyle(
                         color: Colors.grey, 
-                        fontSize: 18
+                        fontSize: 20
+                      ), 
+                  ), 
+                ],
+              ),
+            ),
+
+            SizedBox(height: 16),
+            
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 14),
+              decoration: BoxDecoration(
+                color: const Color(0xFF1A1F32),
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child : Column (
+                crossAxisAlignment: CrossAxisAlignment.start, 
+                children : [
+                  Text("The Great Adventure", 
+                    style : const TextStyle(
+                      color : Colors.white,
+                      fontSize : 20, 
+                      fontWeight : FontWeight.bold
+                    ),
+                  ),
+                  Text ("Sarah Mitchell", 
+                    style : const TextStyle(
+                      color : Colors.grey,
+                      fontSize : 15
+                    ),
+                  ),
+                  Chip (
+                    label: Text(
+                      "Fiction", 
+                      style: TextStyle(color: Colors.white, fontSize: 15,
                       ), 
                     ), 
-                
+                    backgroundColor: Colors.purple, 
+                  ),
+                  Row (
+                    children: [
+                      Icon(
+                        Icons.star, 
+                        color: Colors.yellow, 
+                        size: 15,
+                      ), 
+                      SizedBox(width: 4), 
+                      Text(
+                        "4.8",
+                        style: TextStyle(
+                          color: Colors.white, 
+                          fontSize: 15,
+                          fontWeight : FontWeight.bold, 
+                        ), 
+                      ), 
+                      Icon(
+                        Icons.circle, 
+                        color: Colors.grey, 
+                        size: 15,
+                      ), 
+                      SizedBox(width: 4), 
+                      Text("342p",
+                          style: TextStyle(
+                            color: Colors.grey, 
+                            fontSize: 15,
+                          ), 
+                      ), 
+                    ], 
+                  ), 
+                  Text("Saved 2 days ago", 
+                      style: TextStyle(
+                        color: Colors.grey, 
+                        fontSize: 20
+                      ), 
+                  ), 
                 ],
               ),
             ),
