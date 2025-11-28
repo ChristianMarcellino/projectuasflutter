@@ -36,13 +36,11 @@ class _SaveScreen extends State<SaveScreen> {
                         "3 books in your collection",
                         style: TextStyle(color: Colors.white54, fontSize: 13),
                       ),
-                      
                     ],
-                    
-                    
                 ),
               ],
             ),
+            //search
           ],
         ),
         actions: [
