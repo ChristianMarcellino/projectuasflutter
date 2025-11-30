@@ -13,6 +13,7 @@ class _SaveScreen extends State<SaveScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF030712),
+      //app
       appBar: AppBar(
         backgroundColor: Color(0xFF111827),
         title: const Column(
@@ -41,14 +42,19 @@ class _SaveScreen extends State<SaveScreen> {
               ],
             ),
             //search
+            Container(
+              color: const Color(0xFF1E293B),
+              borderRadius: BorderRadius.circular(12),
+            ),
           ],
         ),
         actions: [
-          Icon(Icons.bookmark, color: Colors.purpleAccent, size: 26),
+          Icon(Icons.bookmark_add_outlined, color: Colors.purpleAccent, size: 26),
           SizedBox(width: 16),
         ],
       ),
 
+      //body
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
 
