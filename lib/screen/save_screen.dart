@@ -44,10 +44,27 @@ class _SaveScreen extends State<SaveScreen> {
             ),
 
           Container(
-            padding: const EdgeInsets.all(5),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
             decoration: BoxDecoration(
-              borderRadius : BorderRadius.circular(10),
+              color: const Color(0xFF111827), 
+              borderRadius : BorderRadius.circular(16),
             ),
+            child: Row(
+              children: [
+                const Icon(Icons.search, color:Colors.grey), 
+                const SizedBox(width: 10), 
+                Expanded(
+                  child: TextField(
+                    style: const TextStyle(color: Colors.white), 
+                    decoration: const InputDecoration(
+                      hintText: "Search saved books...", 
+                      hintStyle: TextStyle(color: Colors.grey),
+                      border: InputBorder.none, 
+                    ), 
+                  ), 
+                ), 
+              ],
+            ), 
             
           ),
         ],
