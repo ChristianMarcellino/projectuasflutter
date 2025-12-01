@@ -54,7 +54,7 @@ class _SaveScreen extends State<SaveScreen> {
       
       //body
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
 
         child: Column(
           children: [
