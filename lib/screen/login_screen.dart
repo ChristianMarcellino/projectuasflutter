@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:projectuas/main.dart';
 import 'package:projectuas/screen/register_screen.dart';
 import 'package:projectuas/screen/ui/custom_form_field.dart';
 import 'package:projectuas/screen/ui/button.dart';
 import 'package:projectuas/screen/ui/redirect_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -12,8 +14,48 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  String? _errorText;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  bool isSignedIn = false;
+
+  void signIn() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String savedEmail = prefs.getString("email") ?? "";
+    final String savedPassword = prefs.getString("password") ?? "";
+    final String enteredEmail = _emailController.text.trim();
+    final String enteredPassword = _passwordController.text.trim();
+
+    if (savedEmail.isEmpty || savedPassword.isEmpty) {
+      setState(() {
+        _errorText = "Akun Belum Terdaftar";
+      });
+      return;
+    } else if (enteredEmail != savedEmail || enteredPassword != savedPassword) {
+      setState(() {
+        _errorText = "Email atau Password Salah";
+      });
+      return;
+    } else if (enteredEmail.isEmpty || enteredPassword.isEmpty) {
+      setState(() {
+        _errorText = "Email dan Password Wajib Diisi";
+      });
+      return;
+    } else {
+      setState(() {
+        _errorText = "";
+        isSignedIn = true;
+      });
+    }
+
+    if (isSignedIn) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => MainScreen()),
+      );
+    }
+  }
+
   bool _obscurePassword = true;
   @override
   Widget build(BuildContext context) {
@@ -58,6 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     label: "Email",
                     controller: _emailController,
                     hint: "Enter your email",
+                    errorText: _errorText,
                   ),
 
                   SizedBox(height: 8),
@@ -66,6 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     controller: _passwordController,
                     hint: "Enter your password",
                     obscurePassword: _obscurePassword,
+                    errorText: _errorText,
                     suffixIcon: IconButton(
                       onPressed: () {
                         setState(() {
@@ -85,7 +129,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Button(
                         icon: Icons.login,
                         title: "Sign In",
-                        onPressed: () {},
+
+                        onPressed: () {
+                          signIn();
+                        },
                       ),
                     ),
                   ),

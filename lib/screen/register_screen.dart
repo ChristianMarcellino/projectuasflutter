@@ -37,7 +37,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return;
   }
 
-  bool _obscurePassword = false;
+  bool _obscurePassword = true;
 
   @override
   Widget build(BuildContext context) {

@@ -3,6 +3,7 @@ import 'package:projectuas/screen/alert_screen.dart';
 import 'package:projectuas/screen/home_screen.dart';
 import 'package:projectuas/screen/profile_screen.dart';
 import 'package:projectuas/screen/saved_screen.dart';
+import 'package:projectuas/screen/search_screen.dart';
 import 'package:projectuas/screen/splash_screen.dart';
 
 void main() {
@@ -67,7 +68,10 @@ class _MainScreenState extends State<MainScreen> {
           items: [
             BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
             BottomNavigationBarItem(icon: Icon(Icons.bookmark), label: "Saved"),
-            BottomNavigationBarItem(icon: Icon(Icons.notifications), label: "Alert"),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.notifications),
+              label: "Alert",
+            ),
             BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
           ],
         ),

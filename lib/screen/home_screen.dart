@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projectuas/screen/ui/custom_form_field.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,21 +11,86 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int? _selectedIndex = 0;
 
-  final List<String> _items = [
-    'Item 1sssssssssssssssssssssssss',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    "sd",
-    "sds",
-    'sds',
+  String searchQuery = "";
+  final TextEditingController _searchController = TextEditingController();
+
+  List<Map<String, dynamic>> _filteredBooks = [];
+  final List<Map<String, dynamic>> _items = [
+    {
+      "name": "wawan",
+      "description": "wawan",
+      "category": "wawan",
+      "availability": true,
+      "isSaved": true,
+      "imageUrl": "wawan.jpg",
+      "rating": 2.4,
+      "pages": 200,
+    },
+    {
+      "name": "wawanzz",
+      "description": "wawanzz",
+      "category": "wawanzz",
+      "availability": true,
+      "isSaved": true,
+      "imageUrl": "wawan.jpg",
+      "rating": 2.4,
+      "pages": 200,
+    },
+    {
+      "name": "wawanzasdasdz",
+      "description": "wawanzz",
+      "category": "wawanzz",
+      "availability": true,
+      "isSaved": true,
+      "imageUrl": "wawan.jpg",
+      "rating": 2.4,
+      "pages": 200,
+    },
+    {
+      "name": "wawanzzssss",
+      "description": "wawanzz",
+      "category": "wawanzz",
+      "availability": true,
+      "isSaved": true,
+      "imageUrl": "wawan.jpg",
+      "rating": 2.4,
+      "pages": 200,
+    },
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController.addListener(_filterBook);
+    _filteredBooks = _items;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _searchController.dispose();
+  }
+
+  void _filterBook() {
+    setState(() {
+      searchQuery = _searchController.text.toLowerCase().trim();
+    });
+    if (searchQuery.isEmpty) {
+      _filteredBooks = _items;
+    } else {
+      _filteredBooks = _items.where((book) {
+        return book["name"].toLowerCase().contains(searchQuery);
+      }).toList();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF111827),
         automaticallyImplyLeading: false,
+        toolbarHeight: MediaQuery.sizeOf(context).height / 4,
         title: Container(
           alignment: AlignmentDirectional.topStart,
           width: MediaQuery.sizeOf(context).width,
@@ -44,154 +110,154 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 14),
                 ),
               ),
+              CustomFormField(
+                label: "",
+                controller: _searchController,
+                hint: "Book",
+                suffixIcon: Icon(Icons.search),
+              ),
             ],
           ),
         ),
       ),
       backgroundColor: Color(0xFF030712),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 50,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: _items.length,
-                  itemBuilder: (context, index) {
-                    bool isActive = _selectedIndex == index;
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Color(0xFF374151)),
-                          gradient: LinearGradient(
-                            colors: isActive
-                                ? [Color(0xFF9333EA), Color(0xFF2563EB)]
-                                : [Color(0xFF1F2937), Color(0xFF1F2937)],
-                          ),
-                          borderRadius: BorderRadius.circular(30),
+      body: Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            SizedBox(height: 10),
+            SizedBox(
+              height: 50,
+              child: ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: _items.length,
+                itemBuilder: (context, index) {
+                  bool isActive = _selectedIndex == index;
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Color(0xFF374151)),
+                        gradient: LinearGradient(
+                          colors: isActive
+                              ? [Color(0xFF9333EA), Color(0xFF2563EB)]
+                              : [Color(0xFF1F2937), Color(0xFF1F2937)],
                         ),
-                        child: TextButton(
-                          style: TextButton.styleFrom(
-                            foregroundColor: Color(0xFFD1D5DB),
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _selectedIndex = index;
-                            });
-                          },
-                          child: Text(
-                            _items[index],
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                          foregroundColor: Color(0xFFD1D5DB),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _selectedIndex = index;
+                          });
+                        },
+                        child: Text(
+                          _items[index]["name"],
+                          style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
-              SizedBox(
-                height: 500,
-                child: ListView.builder(
-                  itemCount: _items.length,
-                  itemBuilder: (context, index) {
-                    final book = _items[index];
-                    return Card(
-                      elevation: 1,
-                      margin: EdgeInsets.all(8),
-                      color: Color(0xFF111827),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          spacing: 15,
-                          children: [
-                            Stack(
+            ),
+            SizedBox(
+              height: 500,
+              child: ListView.builder(
+                itemCount: _filteredBooks.length,
+                itemBuilder: (context, index) {
+                  final book = _filteredBooks[index];
+                  return Card(
+                    elevation: 1,
+                    margin: EdgeInsets.all(8),
+                    color: Color(0xFF111827),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        spacing: 15,
+                        children: [
+                          Stack(
+                            children: [
+                              ClipRRect(
+                                child: Image.network(
+                                  "https://marketplace.canva.com/EAGUhHGuQOg/1/0/1003w/canva-orange-and-blue-anime-cartoon-illustrative-novel-story-book-cover-WZE2VIj5AVQ.jpg",
+                                  fit: BoxFit.cover,
+                                  width: 100,
+                                  height: 180,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Expanded(
+                            child: Column(
+                              spacing: 3,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                ClipRRect(
-                                  child: Image.network(
-                                    "https://marketplace.canva.com/EAGUhHGuQOg/1/0/1003w/canva-orange-and-blue-anime-cartoon-illustrative-novel-story-book-cover-WZE2VIj5AVQ.jpg",
-                                    fit: BoxFit.cover,
-                                    width: 100,
-                                    height: 180,
+                                Text(
+                                  "Judul Buku",
+                                  style: TextStyle(color: Colors.yellow),
+                                ),
+                                Text(
+                                  book["name"],
+                                  style: TextStyle(color: Color(0xFF6B7280)),
+                                ),
+                                Container(
+                                  color: Colors.black,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Text(
+                                      "wawan",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
                                   ),
+                                ),
+                                Row(
+                                  spacing: 5,
+                                  children: [
+                                    Row(
+                                      spacing: 3,
+                                      children: [
+                                        Icon(Icons.star, color: Colors.yellow),
+                                        Text(
+                                          "4.8",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      spacing: 3,
+                                      children: [
+                                        Icon(
+                                          Icons.timer,
+                                          color: Color(0xFF6B7280),
+                                        ),
+                                        Text(
+                                          "3222 pages",
+                                          style: TextStyle(
+                                            color: Color(0xFF6B7280),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-                            Expanded(
-                              child: Column(
-                                spacing: 3,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Judul Buku",
-                                    style: TextStyle(color: Colors.yellow),
-                                  ),
-                                  Text(
-                                    _items[index],
-                                    style: TextStyle(color: Color(0xFF6B7280)),
-                                  ),
-                                  Container(
-                                    color: Colors.black,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Text(
-                                        "wawan",
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ),
-                                  ),
-                                  Row(
-                                    spacing: 5,
-                                    children: [
-                                      Row(
-                                        spacing: 3,
-                                        children: [
-                                          Icon(
-                                            Icons.star,
-                                            color: Colors.yellow,
-                                          ),
-                                          Text(
-                                            "4.8",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        spacing: 3,
-                                        children: [
-                                          Icon(
-                                            Icons.timer,
-                                            color: Color(0xFF6B7280),
-                                          ),
-                                          Text(
-                                            "3222 pages",
-                                            style: TextStyle(
-                                              color: Color(0xFF6B7280),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  );
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
