@@ -16,9 +16,9 @@ class _SaveScreen extends State<SaveScreen> {
       //app
       appBar: AppBar(
         backgroundColor: Color(0xFF111827),
-        title: const Column(
+        title: Column(
           children: [
-            Row(
+            const Row(
               children: [
                 Icon(Icons.arrow_back, color: Colors.purple),
                 SizedBox(width: 10),
@@ -37,13 +37,21 @@ class _SaveScreen extends State<SaveScreen> {
                         "3 books in your collection",
                         style: TextStyle(color: Colors.white54, fontSize: 13),
                       ),
+                      
                     ],
                 ),
               ],
             ),
-            //search
+
+          Container(
+            padding: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              borderRadius : BorderRadius.circular(10),
+            ),
             
-          ],
+          ),
+        ],
+          
         ),
         actions: [
           Icon(Icons.bookmark_add_outlined, color: Colors.purpleAccent, size: 26),
