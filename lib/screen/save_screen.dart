@@ -21,7 +21,7 @@ class _SaveScreen extends State<SaveScreen> {
             Row(
               children: [
                 Icon(Icons.arrow_back, color: Colors.purple),
-                SizedBox(width: 8),
+                SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -42,10 +42,7 @@ class _SaveScreen extends State<SaveScreen> {
               ],
             ),
             //search
-            Container(
-              color: const Color(0xFF1E293B),
-              borderRadius: BorderRadius.circular(12),
-            ),
+            
           ],
         ),
         actions: [
@@ -54,6 +51,7 @@ class _SaveScreen extends State<SaveScreen> {
         ],
       ),
 
+      
       //body
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -119,7 +117,11 @@ class _SaveScreen extends State<SaveScreen> {
                         style: TextStyle(color: Colors.grey, 
                         fontSize: 20),
                       ),
-                      SizedBox(width: 1100),
+                      Expanded(
+                        child: Container(
+                          width: double.infinity,
+                        ),
+                      ),
                       Icon(Icons.delete, color: Colors.grey),
                     ],
                   ),
@@ -187,7 +189,11 @@ class _SaveScreen extends State<SaveScreen> {
                         "Saved 5 days ago",
                         style: TextStyle(color: Colors.grey, fontSize: 20),
                       ),
-                      SizedBox(width: 1100),
+                      Expanded(
+                        child: Container(
+                          width: double.infinity,
+                        ),
+                      ),
                       Icon(Icons.delete, color: Colors.grey),
                     ],
                   ),
@@ -255,7 +261,11 @@ class _SaveScreen extends State<SaveScreen> {
                         "Saved 6 days ago",
                         style: TextStyle(color: Colors.grey, fontSize: 20),
                       ),
-                      SizedBox(width: 1100),
+                      Expanded(
+                        child: Container(
+                          width: double.infinity,
+                        ),
+                      ),
                       Icon(Icons.delete, color: Colors.grey),
                     ],
                   ),
