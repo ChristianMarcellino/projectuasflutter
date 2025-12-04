@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:projectuas/screen/ui/custom_form_field.dart';
 
 class SaveScreen extends StatefulWidget {
   const SaveScreen({super.key});
@@ -9,6 +10,8 @@ class SaveScreen extends StatefulWidget {
 }
 
 class _SaveScreen extends State<SaveScreen> {
+  final TextEditingController _searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +20,10 @@ class _SaveScreen extends State<SaveScreen> {
       appBar: AppBar(
         toolbarHeight: MediaQuery.sizeOf(context).height / 5,
         backgroundColor: Color(0xFF111827),
+        automaticallyImplyLeading: false,
         title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Row(
               children: [
@@ -45,41 +51,14 @@ class _SaveScreen extends State<SaveScreen> {
 
             SizedBox(height: 10),
 
-            Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Container(
-                height: 45,
-                decoration: BoxDecoration(
-                  color: Color(0xFF1A1F32),
-                  borderRadius: BorderRadius.circular(14),
-                ),
-                child: TextField(
-                  style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
-                    hintText: "Search saved books",
-                    focusColor: Colors.white,
-                    hintStyle: TextStyle(color: Colors.white54),
-                    prefixIcon: Icon(Icons.search, color: Colors.white54),
-                    filled: true,
-                    fillColor: Color(0xFF1A1F32),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(14),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                ),
-              ),
+            CustomFormField(
+              label: "",
+              controller: _searchController,
+              hint: "Book",
+              suffixIcon: Icon(Icons.search),
             ),
           ],
         ),
-        actions: [
-          Icon(
-            Icons.bookmark_add_outlined,
-            color: Colors.purpleAccent,
-            size: 26,
-          ),
-          SizedBox(width: 16),
-        ],
       ),
 
       //body
