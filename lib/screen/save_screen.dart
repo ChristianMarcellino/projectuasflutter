@@ -14,71 +14,74 @@ class _SaveScreen extends State<SaveScreen> {
     return Scaffold(
       backgroundColor: Color(0xFF030712),
       //app bar
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(120),
-        child: AppBar(
-          backgroundColor: Color(0xFF111827),
-          title: Column(
-            children: [
-              const Row(
-                children: [
-                  Icon(Icons.arrow_back, color: Colors.purple),
-                  SizedBox(width: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Saved Books",
-                          style: TextStyle(
-                            color: Color(0xFFD1D5DB),
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          "3 books in your collection",
-                          style: TextStyle(color: Colors.white54, fontSize: 13),
-                        ),
-                        
-                      ],
-                  ),
-                ],
-              ),
-        
-            SizedBox(height: 10),
-            
+      appBar: AppBar(
+        toolbarHeight: MediaQuery.sizeOf(context).height / 5,
+        backgroundColor: Color(0xFF111827),
+        title: Column(
+          children: [
+            Row(
+              children: [
+                Icon(Icons.arrow_back, color: Colors.purple),
+                SizedBox(width: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Saved Books",
+                      style: TextStyle(
+                        color: Color(0xFFD1D5DB),
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      "3 books in your collection",
+                      style: TextStyle(color: Colors.white54, fontSize: 13),
+                    ),
+                  ],
+                ),
+              ],
+            ),
 
-            Container(
-              height: 45,
-              decoration: BoxDecoration(
-                color: Color(0xFF1A1F32),
-                borderRadius: BorderRadius.circular(14),
-              ),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: "Search saved books",
-                  hintStyle: TextStyle(color: Colors.white54),
-                  prefixIcon: Icon(Icons.search, color: Colors.white54),
-                  filled: true,
-                  fillColor: Color(0xFF1A1F32),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(14),
-                    borderSide: BorderSide.none,
+            SizedBox(height: 10),
+
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Container(
+                height: 45,
+                decoration: BoxDecoration(
+                  color: Color(0xFF1A1F32),
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: TextField(
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    hintText: "Search saved books",
+                    focusColor: Colors.white,
+                    hintStyle: TextStyle(color: Colors.white54),
+                    prefixIcon: Icon(Icons.search, color: Colors.white54),
+                    filled: true,
+                    fillColor: Color(0xFF1A1F32),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(14),
+                      borderSide: BorderSide.none,
+                    ),
                   ),
                 ),
               ),
-            ), 
-          ],
-            
-          ),
-          actions: [
-            Icon(Icons.bookmark_add_outlined, color: Colors.purpleAccent, size: 26),
-            SizedBox(width: 16),
+            ),
           ],
         ),
+        actions: [
+          Icon(
+            Icons.bookmark_add_outlined,
+            color: Colors.purpleAccent,
+            size: 26,
+          ),
+          SizedBox(width: 16),
+        ],
       ),
 
-      
       //body
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -141,14 +144,9 @@ class _SaveScreen extends State<SaveScreen> {
                     children: [
                       Text(
                         "Saved 2 days ago",
-                        style: TextStyle(color: Colors.grey, 
-                        fontSize: 20),
+                        style: TextStyle(color: Colors.grey, fontSize: 20),
                       ),
-                      Expanded(
-                        child: Container(
-                          width: double.infinity,
-                        ),
-                      ),
+                      Expanded(child: Container(width: double.infinity)),
                       Icon(Icons.delete, color: Colors.grey),
                     ],
                   ),
@@ -216,11 +214,7 @@ class _SaveScreen extends State<SaveScreen> {
                         "Saved 5 days ago",
                         style: TextStyle(color: Colors.grey, fontSize: 20),
                       ),
-                      Expanded(
-                        child: Container(
-                          width: double.infinity,
-                        ),
-                      ),
+                      Expanded(child: Container(width: double.infinity)),
                       Icon(Icons.delete, color: Colors.grey),
                     ],
                   ),
@@ -288,11 +282,7 @@ class _SaveScreen extends State<SaveScreen> {
                         "Saved 6 days ago",
                         style: TextStyle(color: Colors.grey, fontSize: 20),
                       ),
-                      Expanded(
-                        child: Container(
-                          width: double.infinity,
-                        ),
-                      ),
+                      Expanded(child: Container(width: double.infinity)),
                       Icon(Icons.delete, color: Colors.grey),
                     ],
                   ),
