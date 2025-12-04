@@ -13,67 +13,69 @@ class _SaveScreen extends State<SaveScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF030712),
-      //app
-      appBar: AppBar(
-        backgroundColor: Color(0xFF111827),
-        title: Column(
-          children: [
-            const Row(
-              children: [
-                Icon(Icons.arrow_back, color: Colors.purple),
-                SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Saved Books",
-                        style: TextStyle(
-                          color: Color(0xFFD1D5DB),
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
+      //app bar
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(120),
+        child: AppBar(
+          backgroundColor: Color(0xFF111827),
+          title: Column(
+            children: [
+              const Row(
+                children: [
+                  Icon(Icons.arrow_back, color: Colors.purple),
+                  SizedBox(width: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Saved Books",
+                          style: TextStyle(
+                            color: Color(0xFFD1D5DB),
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      Text(
-                        "3 books in your collection",
-                        style: TextStyle(color: Colors.white54, fontSize: 13),
-                      ),
-                      
-                    ],
-                ),
-              ],
-            ),
+                        Text(
+                          "3 books in your collection",
+                          style: TextStyle(color: Colors.white54, fontSize: 13),
+                        ),
+                        
+                      ],
+                  ),
+                ],
+              ),
+        
+            SizedBox(height: 10),
+            
 
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-            decoration: BoxDecoration(
-              color: const Color(0xFF111827), 
-              borderRadius : BorderRadius.circular(16),
-            ),
-            child: Row(
-              children: [
-                const Icon(Icons.search, color:Colors.grey), 
-                const SizedBox(width: 10), 
-                Expanded(
-                  child: TextField(
-                    style: const TextStyle(color: Colors.white), 
-                    decoration: const InputDecoration(
-                      hintText: "Search saved books...", 
-                      hintStyle: TextStyle(color: Colors.grey),
-                      border: InputBorder.none, 
-                    ), 
-                  ), 
-                ), 
-              ],
+            Container(
+              height: 45,
+              decoration: BoxDecoration(
+                color: Color(0xFF1A1F32),
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: "Search saved books",
+                  hintStyle: TextStyle(color: Colors.white54),
+                  prefixIcon: Icon(Icons.search, color: Colors.white54),
+                  filled: true,
+                  fillColor: Color(0xFF1A1F32),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(14),
+                    borderSide: BorderSide.none,
+                  ),
+                ),
+              ),
             ), 
+          ],
             
           ),
-        ],
-          
+          actions: [
+            Icon(Icons.bookmark_add_outlined, color: Colors.purpleAccent, size: 26),
+            SizedBox(width: 16),
+          ],
         ),
-        actions: [
-          Icon(Icons.bookmark_add_outlined, color: Colors.purpleAccent, size: 26),
-          SizedBox(width: 16),
-        ],
       ),
 
       
