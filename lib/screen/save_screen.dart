@@ -74,7 +74,19 @@ class _SaveScreen extends State<SaveScreen> {
                 borderRadius: BorderRadius.circular(14),
               ),
               
-              child: Column(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network('',
+                    ),
+                  ),
+
+                SizedBox(width: 12,),
+
+                Expanded(
+                child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -133,6 +145,9 @@ class _SaveScreen extends State<SaveScreen> {
                 ],
               ),
             ),
+          ],
+        ),
+      ),
 
             SizedBox(height: 16),
 
