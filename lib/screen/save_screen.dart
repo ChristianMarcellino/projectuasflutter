@@ -2,6 +2,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projectuas/screen/ui/custom_form_field.dart';
 
+class Book {
+  final String title;
+  final String author;
+  final String category;
+  final double rating;
+  final int pages;
+  final String savedTime;
+  final String imagePath;
+
+  Book({
+    required this.title,
+    required this.author,
+    required this.category,
+    required this.rating,
+    required this.pages,
+    required this.savedTime,
+    required this.imagePath,
+  });
+}
+
 class SaveScreen extends StatefulWidget {
   const SaveScreen({super.key});
 
@@ -12,7 +32,39 @@ class SaveScreen extends StatefulWidget {
 class _SaveScreen extends State<SaveScreen> {
   final TextEditingController _searchController = TextEditingController();
 
+  List<Book> savedBooks = [
+    Book(
+      title: "The Great Adventure",
+      author: "Sarah Mitchell",
+      category: "Fiction",
+      rating: 4.8,
+      pages: 342,
+      savedTime: "Saved 2 days ago",
+      imagePath: "assets/Gambar_1.jpg",
+    ),
+  ];
+
+  String searchQuery = "";
+
+  List<Book> filteredBooks = [];
+
   @override
+  void initState() {
+    super.initState();
+
+    filteredBooks = savedBooks;
+
+    _searchController.addListener(() {
+      setState(() {
+        filteredBooks = savedBooks.where((book) {
+          return book.title.toLowerCase().contains(
+            _searchController.text.toLowerCase(),
+          );
+        }).toList();
+      });
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF030712),
@@ -67,87 +119,115 @@ class _SaveScreen extends State<SaveScreen> {
 
         child: Column(
           children: [
+            Expanded(
+              child: ListView.builder(
+                itemCount: filteredBooks.length,
+                itemBuilder: (context, index) {
+                  final book = filteredBooks[index];
+                  return bookCard(book, index);
+                },
+              ),
+            ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 14),
               decoration: BoxDecoration(
                 color: const Color(0xFF1A1F32),
                 borderRadius: BorderRadius.circular(14),
               ),
-              
+
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Image.network('',
-                    ),
+                    child: Image.asset('Gambar_1.jpg'),
                   ),
 
-                SizedBox(width: 12,),
+                  SizedBox(width: 12),
 
-                Expanded(
-                child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "The Great Adventure",
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    "Sarah Mitchell",
-                    style: const TextStyle(color: Colors.grey, fontSize: 15),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Chip(
-                      label: Text(
-                        "Fiction",
-                        style: TextStyle(color: Colors.white, fontSize: 15),
-                      ),
-                      backgroundColor: const Color(0xFF151a2b),
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Icon(Icons.star, color: Colors.yellow, size: 15),
-                      SizedBox(width: 4),
-                      Text(
-                        "4.8",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "The Great Adventure",
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 10),
-                      Icon(Icons.circle, color: Colors.grey, size: 15),
-                      SizedBox(width: 4),
-                      Text(
-                        "342p",
-                        style: TextStyle(color: Colors.grey, fontSize: 15),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "Saved 2 days ago",
-                        style: TextStyle(color: Colors.grey, fontSize: 20),
-                      ),
-                      Expanded(child: Container(width: double.infinity)),
-                      Icon(Icons.delete, color: Colors.grey),
-                    ],
+                        Text(
+                          "Sarah Mitchell",
+                          style: const TextStyle(
+                            color: Colors.grey,
+                            fontSize: 15,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Chip(
+                            label: Text(
+                              "Fiction",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                              ),
+                            ),
+                            backgroundColor: const Color(0xFF151a2b),
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Icon(Icons.star, color: Colors.yellow, size: 15),
+                            SizedBox(width: 4),
+                            Text(
+                              "4.8",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(width: 10),
+                            Icon(Icons.circle, color: Colors.grey, size: 15),
+                            SizedBox(width: 4),
+                            Text(
+                              "342p",
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              "Saved 2 days ago",
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 20,
+                              ),
+                            ),
+                            Expanded(child: Container(width: double.infinity)),
+                            IconButton(
+                              icon: Icon(Icons.delete, color: Colors.grey),
+                              onPressed: () {
+                                setState(() {
+                                  savedBooks.remove(index);
+                                  filteredBooks = List.from(savedBooks);
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
 
             SizedBox(height: 16),
 
@@ -290,4 +370,3 @@ class _SaveScreen extends State<SaveScreen> {
     );
   }
 }
-

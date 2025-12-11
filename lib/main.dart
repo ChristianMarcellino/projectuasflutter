@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:projectuas/screen/home_screen.dart';
-import 'package:projectuas/screen/login_screen.dart';
 import 'package:projectuas/screen/save_screen.dart';
-import 'package:projectuas/screen/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
