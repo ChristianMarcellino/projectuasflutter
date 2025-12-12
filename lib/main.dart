@@ -1,12 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:projectuas/data/buku_data.dart';
 import 'package:projectuas/screen/alert_screen.dart';
 import 'package:projectuas/screen/home_screen.dart';
 import 'package:projectuas/screen/profile_screen.dart';
 import 'package:projectuas/screen/saved_screen.dart';
-import 'package:projectuas/screen/search_screen.dart';
 import 'package:projectuas/screen/splash_screen.dart';
+import 'package:flutter/foundation.dart' show kIsWeb; // TAMBAHKAN
+import 'package:projectuas/helper/database_helper.dart'; // TAMBAHKAN
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  Future<void> _initializeDatabase() async {
+    try {
+      final dbHelper = DatabaseHelper();
+
+      print('Checking database status...');
+
+      // Check apakah database sudah memiliki data
+      final isEmpty = await dbHelper.isDatabaseEmpty();
+
+      if (isEmpty) {
+        print('Database empty, migrating data...');
+
+        // Migrasi data dari static list ke database
+        await dbHelper.insertBukuList(bukuList);
+
+        print('Data candi berhasil dimigrasikan ke database');
+      } else {
+        print('Database sudah memiliki data');
+      }
+    } catch (e) {
+      print('Database initialization error: $e');
+      rethrow;
+    }
+  }
+
+  if (kIsWeb) {
+    try {
+      await _initializeDatabase();
+    } catch (e) {
+      print("Error Initializing Database $e");
+    }
+  }
+
   runApp(const MyApp());
 }
 
