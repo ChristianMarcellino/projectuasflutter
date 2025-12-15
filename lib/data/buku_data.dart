@@ -13,7 +13,7 @@ var bukuList = [
     rating: 4.1,
   ),
   Buku(
-    id: 1,
+    id: 2,
     availability: true,
     category: "wawan",
     description: "wawanz",
@@ -24,7 +24,7 @@ var bukuList = [
     rating: 4.1,
   ),
   Buku(
-    id: 1,
+    id: 3,
     availability: true,
     category: "wawan",
     description: "wawanz",
@@ -35,7 +35,7 @@ var bukuList = [
     rating: 4.1,
   ),
   Buku(
-    id: 1,
+    id: 4,
     availability: true,
     category: "wawan",
     description: "wawanz",
@@ -46,7 +46,7 @@ var bukuList = [
     rating: 4.1,
   ),
   Buku(
-    id: 1,
+    id: 5,
     availability: true,
     category: "wawan",
     description: "wawanz",
@@ -57,7 +57,7 @@ var bukuList = [
     rating: 4.1,
   ),
   Buku(
-    id: 1,
+    id: 6,
     availability: true,
     category: "wawan",
     description: "wawanz",
