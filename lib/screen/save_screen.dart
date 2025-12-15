@@ -2,26 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projectuas/screen/ui/custom_form_field.dart';
 
-class Book {
-  final String title;
-  final String author;
-  final String category;
-  final double rating;
-  final int pages;
-  final String savedTime;
-  final String imagePath;
-
-  Book({
-    required this.title,
-    required this.author,
-    required this.category,
-    required this.rating,
-    required this.pages,
-    required this.savedTime,
-    required this.imagePath,
-  });
-}
-
 class SaveScreen extends StatefulWidget {
   const SaveScreen({super.key});
 
@@ -32,45 +12,15 @@ class SaveScreen extends StatefulWidget {
 class _SaveScreen extends State<SaveScreen> {
   final TextEditingController _searchController = TextEditingController();
 
-  List<Book> savedBooks = [
-    Book(
-      title: "The Great Adventure",
-      author: "Sarah Mitchell",
-      category: "Fiction",
-      rating: 4.8,
-      pages: 342,
-      savedTime: "Saved 2 days ago",
-      imagePath: "assets/Gambar_1.jpg",
-    ),
-  ];
-
   String searchQuery = "";
 
-  List<Book> filteredBooks = [];
-
   @override
-  void initState() {
-    super.initState();
-
-    filteredBooks = savedBooks;
-
-    _searchController.addListener(() {
-      setState(() {
-        filteredBooks = savedBooks.where((book) {
-          return book.title.toLowerCase().contains(
-            _searchController.text.toLowerCase(),
-          );
-        }).toList();
-      });
-    });
-  }
-
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF030712),
       //app bar
       appBar: AppBar(
-        toolbarHeight: MediaQuery.sizeOf(context).height / 5,
+        toolbarHeight: MediaQuery.of(context).size.height / 5,
         backgroundColor: Color(0xFF111827),
         automaticallyImplyLeading: false,
         title: Column(
@@ -117,17 +67,7 @@ class _SaveScreen extends State<SaveScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
 
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                itemCount: filteredBooks.length,
-                itemBuilder: (context, index) {
-                  final book = filteredBooks[index];
-                  return bookCard(book, index);
-                },
-              ),
-            ),
+        child: Column(children: [
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 14),
               decoration: BoxDecoration(
@@ -140,7 +80,7 @@ class _SaveScreen extends State<SaveScreen> {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Image.asset('Gambar_1.jpg'),
+                    child: Image.asset('images/Gambar_1.jpg'),
                   ),
 
                   SizedBox(width: 12),
@@ -214,10 +154,8 @@ class _SaveScreen extends State<SaveScreen> {
                             IconButton(
                               icon: Icon(Icons.delete, color: Colors.grey),
                               onPressed: () {
-                                setState(() {
-                                  savedBooks.remove(index);
-                                  filteredBooks = List.from(savedBooks);
-                                });
+                                //handle delete action here
+                                 
                               },
                             ),
                           ],
@@ -231,6 +169,7 @@ class _SaveScreen extends State<SaveScreen> {
 
             SizedBox(height: 16),
 
+            /*
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 14),
               decoration: BoxDecoration(
@@ -364,6 +303,7 @@ class _SaveScreen extends State<SaveScreen> {
                 ],
               ),
             ),
+            */
           ],
         ),
       ),
