@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projectuas/screen/ui/custom_form_field.dart';
+import 'package:projectuas/data/buku_data.dart';
 
 class SaveScreen extends StatefulWidget {
   const SaveScreen({super.key});
@@ -80,7 +81,12 @@ class _SaveScreen extends State<SaveScreen> {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Image.asset('images/Gambar_1.jpg'),
+                    child: Image.asset(
+                      'images/Gambar_1.jpg',
+                      width: 80,
+                      height: 150,
+                      fit: BoxFit.cover,
+                    ),
                   ),
 
                   SizedBox(width: 12),
@@ -168,6 +174,8 @@ class _SaveScreen extends State<SaveScreen> {
             ),
 
             SizedBox(height: 16),
+
+            
 
             /*
             Container(
