@@ -13,9 +13,9 @@ var bukuList = [
     rating: 4.1,
   ),
   Buku(
-    id: 1,
+    id: 2,
     availability: true,
-    category: "wawan",
+    category: "hoho",
     description: "wawanz",
     imageUrl: "sksajdlasd",
     isSaved: true,
