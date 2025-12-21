@@ -18,6 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool isSignedIn = false;
+  
 
   void signIn() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -25,6 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
     final String savedPassword = prefs.getString("password") ?? "";
     final String enteredEmail = _emailController.text.trim();
     final String enteredPassword = _passwordController.text.trim();
+    isSignedIn = prefs.getBool("isSignedIn") ?? false;
 
     if (savedEmail.isEmpty || savedPassword.isEmpty) {
       setState(() {
@@ -44,8 +46,8 @@ class _LoginScreenState extends State<LoginScreen> {
     } else {
       setState(() {
         _errorText = "";
-        isSignedIn = true;
       });
+
     }
 
     if (isSignedIn) {

@@ -20,6 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Buku> _filteredBooks = [];
   List<Buku> _bukuList = [];
+  List<String> _categories = [];
   final DatabaseHelper _dbHelper = DatabaseHelper();
   bool _isLoading = true;
 
@@ -41,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
       if (kIsWeb) {
         setState(() {
           _bukuList = bukuList;
+          _categories = bukuList.map((buku)=> buku.category).toSet().toList();
           _isLoading = false;
         });
         return;
@@ -88,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         backgroundColor: Color(0xFF111827),
         automaticallyImplyLeading: false,
-        toolbarHeight: MediaQuery.sizeOf(context).height / 4,
+        toolbarHeight: MediaQuery.sizeOf(context).height / 5,
         title: Container(
           alignment: AlignmentDirectional.topStart,
           width: MediaQuery.sizeOf(context).width,
@@ -132,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView.builder(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
-                        itemCount: _bukuList.length,
+                        itemCount: _categories.length,
                         itemBuilder: (context, index) {
                           bool isActive = _selectedIndex == index;
                           return Padding(

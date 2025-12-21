@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projectuas/main.dart';
 import 'package:projectuas/screen/login_screen.dart';
 import 'package:projectuas/screen/ui/custom_form_field.dart';
 import 'package:projectuas/screen/ui/button.dart';
@@ -17,23 +18,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   String? _errorText;
+  bool isSucceed = false;
+
 
   void signUp() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String email = _emailController.text.trim();
     final String username = _usernameController.text.trim();
     final String password = _passwordController.text.trim();
-
+    
     if (password.length < 8) {
       setState(() {
         _errorText = "Minimal 8 Karakter";
       });
+    }else{
+      prefs.setString("email", email);
+      prefs.setString("username", username);
+      prefs.setString("password", password);
+      prefs.setBool("isSignedIn", true);
+      Navigator.push(context, MaterialPageRoute(builder: (context) => MainScreen(),));
     }
-
-    prefs.setString("email", email);
-    prefs.setString("username", username);
-    prefs.setString("password", password);
-
     return;
   }
 
