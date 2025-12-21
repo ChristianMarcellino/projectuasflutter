@@ -6,10 +6,13 @@ import 'package:projectuas/screen/profile_screen.dart';
 import 'package:projectuas/screen/saved_screen.dart';
 import 'package:projectuas/screen/splash_screen.dart';
 import 'package:flutter/foundation.dart' show kIsWeb; // TAMBAHKAN
-import 'package:projectuas/helper/database_helper.dart'; // TAMBAHKAN
+import 'package:projectuas/helper/database_helper.dart';
+import 'package:shared_preferences/shared_preferences.dart'; // TAMBAHKAN
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  
 
   Future<void> _initializeDatabase() async {
     try {
@@ -49,7 +52,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
+  
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -90,7 +93,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF030712),
-      body: _screens[_currentIndex],
+      body: isSignedIn ? _screens[_currentIndex] : ,
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(canvasColor: Color(0xFF111827)),
         child: BottomNavigationBar(
