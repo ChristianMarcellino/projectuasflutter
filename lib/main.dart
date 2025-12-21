@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projectuas/data/buku_data.dart';
 import 'package:projectuas/screen/alert_screen.dart';
 import 'package:projectuas/screen/home_screen.dart';
+import 'package:projectuas/screen/login_screen.dart';
 import 'package:projectuas/screen/profile_screen.dart';
 import 'package:projectuas/screen/saved_screen.dart';
 import 'package:projectuas/screen/splash_screen.dart';
@@ -52,8 +53,7 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  
-  // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -93,7 +93,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF030712),
-      body: isSignedIn ? _screens[_currentIndex] : ,
+      body: isSignedIn ? _screens[_currentIndex] : LoginScreen(),
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(canvasColor: Color(0xFF111827)),
         child: BottomNavigationBar(
