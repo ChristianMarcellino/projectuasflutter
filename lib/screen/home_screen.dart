@@ -44,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() {
           _bukuList = bukuList;
           _categories = bukuList.map((buku)=> buku.category).toSet().toList();
+          _categories[0] = "all";
           _isLoading = false;
         });
         return;
@@ -205,13 +206,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "Judul Buku",
+                                          book.name,
                                           style: TextStyle(
                                             color: Colors.yellow,
                                           ),
                                         ),
                                         Text(
-                                          book.name,
+                                          book.writer,
                                           style: TextStyle(
                                             color: Color(0xFF6B7280),
                                           ),
@@ -221,7 +222,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           child: Padding(
                                             padding: const EdgeInsets.all(4.0),
                                             child: Text(
-                                              "wawan",
+                                              book.category,
                                               style: TextStyle(
                                                 color: Colors.white,
                                               ),
@@ -239,7 +240,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   color: Colors.yellow,
                                                 ),
                                                 Text(
-                                                  "4.8",
+                                                  book.rating.toString(),
                                                   style: TextStyle(
                                                     color: Colors.white,
                                                   ),
@@ -254,7 +255,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   color: Color(0xFF6B7280),
                                                 ),
                                                 Text(
-                                                  "3222 pages",
+                                                  "${book.pages} pages",
                                                   style: TextStyle(
                                                     color: Color(0xFF6B7280),
                                                   ),

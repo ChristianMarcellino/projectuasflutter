@@ -3,6 +3,7 @@ class Buku {
   final String name;
   final String category;
   final String description;
+  final String writer;
   bool availability;
   final double rating;
   final int pages;
@@ -12,6 +13,7 @@ class Buku {
   Buku({
     this.id,
     required this.name,
+    required this.writer,
     required this.category,
     required this.description,
     required this.availability,
@@ -25,6 +27,7 @@ class Buku {
     return {
       'id': id,
       'name': name,
+      "writer" : writer,
       'category': category,
       'description': description,
       'availability': availability ? 1 : 0,
@@ -39,6 +42,7 @@ class Buku {
     return Buku(
       id: map['id'],
       name: map['name'],
+      writer : map['writer'],
       category: map['category'],
       description: map['description'],
       availability: map['availability'] == 1,

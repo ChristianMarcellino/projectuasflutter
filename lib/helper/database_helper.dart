@@ -60,6 +60,7 @@ class DatabaseHelper {
       CREATE TABLE buku (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
+        writer TEXT NOT NULL,
         category TEXT NOT NULL,
         description TEXT NOT NULL,
         availability INTEGER NOT NULL DEFAULT 0,
