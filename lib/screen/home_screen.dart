@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int? _selectedIndex = 0;
 
-  String searchQuery = "";
+  String searchQuery = " ";
   final TextEditingController _searchController = TextEditingController();
 
   List<Buku> _filteredBooks = [];
@@ -28,8 +28,9 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     _searchController.addListener(_filterBook);
-    _filteredBooks = _bukuList;
     _loadDataBuku();
+    _filteredBooks = _bukuList;
+    searchQuery = "";
   }
 
   Future<void> _loadDataBuku() async {
@@ -159,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   });
                                 },
                                 child: Text(
-                                  _bukuList[index].name,
+                                  _bukuList[index].category,
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                               ),

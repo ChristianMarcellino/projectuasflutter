@@ -88,12 +88,29 @@ class _MainScreenState extends State<MainScreen> {
     AlertScreen(),
     ProfileScreen(),
   ];
+  bool isSignedIn = false;
+
+  void getIsSignedIn() async {
+    final prefs = await SharedPreferences.getInstance();
+    isSignedIn = prefs.getBool("isSignedIn") ?? false;
+
+    if(!isSignedIn){
+      Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen(),));
+    }
+  }
+
+  @override
+   void initState () {
+    super.initState();
+    getIsSignedIn();
+   
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF030712),
-      body: isSignedIn ? _screens[_currentIndex] : LoginScreen(),
+      body: _screens[_currentIndex],
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(canvasColor: Color(0xFF111827)),
         child: BottomNavigationBar(

@@ -4,11 +4,11 @@ var bukuList = [
   Buku(
     id: 1,
     availability: true,
-    category: "wawan",
+    category: "wawanz",
     description: "wawanz",
     imageUrl: "sksajdlasd",
     isSaved: true,
-    name: "wawan heker",
+    name: "Totok",
     pages: 201,
     rating: 4.1,
   ),
@@ -26,7 +26,7 @@ var bukuList = [
   Buku(
     id: 3,
     availability: true,
-    category: "wawan",
+    category: "wawanasdsad",
     description: "wawanz",
     imageUrl: "sksajdlasd",
     isSaved: true,
@@ -37,7 +37,7 @@ var bukuList = [
   Buku(
     id: 4,
     availability: true,
-    category: "wawan",
+    category: "wawanaaaa",
     description: "wawanzzsasas",
     imageUrl: "sksajdlasd",
     isSaved: true,
