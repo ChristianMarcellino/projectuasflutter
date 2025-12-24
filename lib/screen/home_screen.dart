@@ -13,15 +13,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int? _selectedIndex = 0;
+  int _selectedIndex = 0;
 
   String searchQuery = " ";
   final TextEditingController _searchController = TextEditingController();
 
   List<Buku> _filteredBooks = [];
   List<Buku> _bukuList = [];
-  List<String> _categories = [];
+  List<String> _uniqueCategories = [];
+  List<String> _categories = ["All"];
   final DatabaseHelper _dbHelper = DatabaseHelper();
+  String category = "";
   bool _isLoading = true;
 
   @override
@@ -43,8 +45,8 @@ class _HomeScreenState extends State<HomeScreen> {
       if (kIsWeb) {
         setState(() {
           _bukuList = bukuList;
-          _categories = bukuList.map((buku)=> buku.category).toSet().toList();
-          _categories[0] = "all";
+          _uniqueCategories = bukuList.map((buku)=> buku.category).toSet().toList();
+          _categories.addAll(_uniqueCategories);
           _isLoading = false;
         });
         return;
@@ -55,6 +57,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
       setState(() {
         _bukuList = bukuListFromDb.isNotEmpty ? bukuListFromDb : bukuList;
+        _uniqueCategories = bukuListFromDb.map((buku)=> buku.category).toSet().toList();
+        _categories.addAll(_uniqueCategories);
         _isLoading = false;
       });
     } catch (e) {
@@ -77,13 +81,9 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       searchQuery = _searchController.text.toLowerCase().trim();
     });
-    if (searchQuery.isEmpty) {
-      _filteredBooks = _bukuList;
-    } else {
       _filteredBooks = _bukuList.where((book) {
-        return book.name.toLowerCase().contains(searchQuery);
+        return book.name.toLowerCase().contains(searchQuery) && book.category.toLowerCase().contains(category);
       }).toList();
-    }
   }
 
   @override
@@ -130,6 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: EdgeInsets.all(8.0),
                 child: Column(
                   children: [
+                    Text(category, style: TextStyle(color:Colors.white),),
                     SizedBox(height: 10),
                     SizedBox(
                       height: 50,
@@ -158,10 +159,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                 onPressed: () {
                                   setState(() {
                                     _selectedIndex = index;
+                                    category = _categories[_selectedIndex] == "All" ? "" : _categories[_selectedIndex];
+                                    _filterBook();
                                   });
                                 },
                                 child: Text(
-                                  _bukuList[index].category,
+                                  _categories[index],
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                               ),
