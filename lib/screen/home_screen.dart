@@ -130,7 +130,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    Text(category, style: TextStyle(color:Colors.white),),
                     SizedBox(height: 10),
                     SizedBox(
                       height: 50,

@@ -37,7 +37,7 @@ dependencies:
   shared_preferences: ^2.5.3
   sqflite: ^2.3.0                    # SQLite untuk mobile
   sqflite_common_ffi: ^2.3.0         # SQLite untuk desktop (Windows/Linux/macOS)
-  sqflite_common_ffi_web: ^0.4.1     # SQLite untuk web
+  sqflite_common_ffi_web: ^1.0.2     # SQLite untuk web
   path_provider: ^2.1.1              # Mendapatkan path penyimpanan
   path: ^1.8.3    
                      # Manipulasi path
@@ -50,7 +50,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
