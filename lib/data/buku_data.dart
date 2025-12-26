@@ -1,3 +1,4 @@
+import 'package:projectuas/helper/database_helper.dart';
 import 'package:projectuas/model/buku.dart';
 
 var bukuList = [
@@ -8,7 +9,7 @@ var bukuList = [
     writer : "Aying",
     description: "wawanz",
     imageUrl: "sksajdlasd",
-    isSaved: true,
+    isSaved: false,
     name: "Totok",
     pages: 201,
     rating: 4.1,
@@ -20,7 +21,7 @@ var bukuList = [
     writer : "Aying",
     description: "wawanz",
     imageUrl: "sksajdlasd",
-    isSaved: true,
+    isSaved: false,
     name: "wawan heker",
     pages: 201,
     rating: 4.1,
@@ -32,7 +33,7 @@ var bukuList = [
     writer : "Aying",
     description: "wawanz",
     imageUrl: "sksajdlasd",
-    isSaved: true,
+    isSaved: false,
     name: "wawan heker",
     pages: 201,
     rating: 4.1,
@@ -44,7 +45,7 @@ var bukuList = [
     writer : "Aying",
     description: "wawanzzsasas",
     imageUrl: "sksajdlasd",
-    isSaved: true,
+    isSaved: false,
     name: "wawan heker",
     pages: 201,
     rating: 4.1,
@@ -56,7 +57,7 @@ var bukuList = [
     writer : "Aying",
     description: "wawanzasdas",
     imageUrl: "sksajdlasd",
-    isSaved: true,
+    isSaved: false,
     name: "wawan heker",
     pages: 201,
     rating: 4.1,
@@ -74,3 +75,5 @@ var bukuList = [
     rating: 4.1,
   ),
 ];
+
+

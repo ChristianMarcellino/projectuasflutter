@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projectuas/model/buku.dart';
+import 'package:projectuas/screen/ui/button.dart';
 import 'package:projectuas/screen/ui/custom_form_field.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:projectuas/helper/database_helper.dart';
@@ -15,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  String searchQuery = " ";
+  String searchQuery = "";
   final TextEditingController _searchController = TextEditingController();
 
   List<Buku> _filteredBooks = [];
@@ -31,7 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _searchController.addListener(_filterBook);
     _loadDataBuku();
-    _filteredBooks = _bukuList;
     searchQuery = "";
   }
 
@@ -45,6 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
       if (kIsWeb) {
         setState(() {
           _bukuList = bukuList;
+          _filteredBooks = _bukuList;
           _uniqueCategories = bukuList.map((buku)=> buku.category).toSet().toList();
           _categories.addAll(_uniqueCategories);
           _isLoading = false;
@@ -54,18 +55,32 @@ class _HomeScreenState extends State<HomeScreen> {
 
       // Untuk mobile/desktop, gunakan database
       final bukuListFromDb = await _dbHelper.getAllBuku();
+      if(bukuListFromDb.isEmpty){
+        await _dbHelper.insertBukuList(bukuList);
+        final loadedDb = await _dbHelper.getAllBuku();
+        setState(() {
+          _bukuList = loadedDb;
+          _filteredBooks = _bukuList;
+          _uniqueCategories = loadedDb.map((buku)=> buku.category).toSet().toList();
+          _categories.addAll(_uniqueCategories);
+          _isLoading = false;
+        });
+      }else {
+        setState(() {
+          _bukuList = bukuListFromDb;
+          _filteredBooks = _bukuList;
+          _uniqueCategories = bukuListFromDb.map((buku)=> buku.category).toSet().toList();
+          _categories.addAll(_uniqueCategories);
+          _isLoading = false;
+        });
 
-      setState(() {
-        _bukuList = bukuListFromDb.isNotEmpty ? bukuListFromDb : bukuList;
-        _uniqueCategories = bukuListFromDb.map((buku)=> buku.category).toSet().toList();
-        _categories.addAll(_uniqueCategories);
-        _isLoading = false;
-      });
+      }
+
     } catch (e) {
       print('Error loading data from database: $e');
-      // Fallback ke data static jika terjadi error
       setState(() {
         _bukuList = bukuList;
+        _filteredBooks = _bukuList;
         _isLoading = false;
       });
     }
@@ -82,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
       searchQuery = _searchController.text.toLowerCase().trim();
     });
       _filteredBooks = _bukuList.where((book) {
-        return book.name.toLowerCase().contains(searchQuery) && book.category.toLowerCase().contains(category);
+         return category.isEmpty ? book.name.toLowerCase().contains(searchQuery) : book.name.toLowerCase().contains(searchQuery) && book.category.toLowerCase() == category.toLowerCase();
       }).toList();
   }
 
@@ -204,8 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Expanded(
                                     child: Column(
                                       spacing: 3,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           book.name,
@@ -266,6 +280,42 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
                                           ],
                                         ),
+                                        Row(
+                                          spacing : 50,
+                                          children: [
+                                            Container(
+                                              decoration : BoxDecoration(
+                                                borderRadius : BorderRadius.circular(20),
+
+                          color: Color(0xFF052e16),
+                                              ),
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  book.availability ? "Available" : "Unavailable",
+                                                  style: TextStyle(
+                                                    color: Color(0xFF4ade80)),
+                                                  ),
+                                                ),
+                                              ),
+                                            book.isSaved ?
+                                            Button(onPressed: (){
+                                              setState(() {
+                                                _dbHelper.toggleFavorite(book.id ?? 0, book.isSaved);
+                                                book.isSaved = !book.isSaved;
+                                              });
+
+                                            }, icon: Icons.bookmark_added_outlined ,title: "Unsave" )
+                                            :
+                                            Button(onPressed: (){
+                                              setState(() {
+                                                _dbHelper.toggleFavorite(book.id ?? 0, book.isSaved);
+                                                book.isSaved = !book.isSaved;
+                                              });
+
+                                            }, icon: Icons.bookmark_add_outlined ,title: "Save"),
+                                          ],
+                                        )
                                       ],
                                     ),
                                   ),

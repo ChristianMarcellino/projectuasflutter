@@ -88,6 +88,16 @@ class DatabaseHelper {
     await batch.commit(noResult: true);
   }
 
+  Future<int> toggleFavorite(int id, bool isSaved) async {
+    final db = await database;
+    return await db.update(
+      'buku',
+      {'isSaved': isSaved ? 1 : 0},
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
   // Get all
   Future<List<Buku>> getAllBuku() async {
     final db = await database;
