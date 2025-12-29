@@ -218,7 +218,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   Expanded(
                                     child: Column(
-                                      spacing: 3,
+                                      spacing: 7,
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
@@ -234,13 +234,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                         ),
                                         Container(
-                                          color: Colors.black,
+                                          decoration : BoxDecoration(
+                          borderRadius : BorderRadius.circular(20),
+                                              border: Border.all(color: Color(0xFF374151)),
+                                              color: Color(0xFF1f2937),
+
+                          ),
                                           child: Padding(
                                             padding: const EdgeInsets.all(4.0),
                                             child: Text(
                                               book.category,
                                               style: TextStyle(
-                                                color: Colors.white,
+                                                color: Color(0xFFc084fc),
                                               ),
                                             ),
                                           ),
@@ -281,7 +286,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ],
                                         ),
                                         Row(
-                                          spacing : 50,
+                                          spacing : 100,
                                           children: [
                                             Container(
                                               decoration : BoxDecoration(
@@ -294,7 +299,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 child: Text(
                                                   book.availability ? "Available" : "Unavailable",
                                                   style: TextStyle(
-                                                    color: Color(0xFF4ade80)),
+                                                    color: book.availability ? Color(0xFF4ade80) : Color(0xFFf87171)),
                                                   ),
                                                 ),
                                               ),
@@ -305,7 +310,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 book.isSaved = !book.isSaved;
                                               });
 
-                                            }, icon: Icons.bookmark_added_outlined ,title: "Unsave" )
+                                            }, icon: Icons.bookmark_added_outlined ,title: "" )
                                             :
                                             Button(onPressed: (){
                                               setState(() {
@@ -313,7 +318,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 book.isSaved = !book.isSaved;
                                               });
 
-                                            }, icon: Icons.bookmark_add_outlined ,title: "Save"),
+                                            }, icon: Icons.bookmark_add_outlined ,title: ""),
                                           ],
                                         )
                                       ],
