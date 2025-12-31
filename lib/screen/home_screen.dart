@@ -41,7 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
     try {
-      // Untuk web, gunakan data static
       if (kIsWeb) {
         setState(() {
           _bukuList = bukuList;
@@ -53,7 +52,6 @@ class _HomeScreenState extends State<HomeScreen> {
         return;
       }
 
-      // Untuk mobile/desktop, gunakan database
       final bukuListFromDb = await _dbHelper.getAllBuku();
       if(bukuListFromDb.isEmpty){
         await _dbHelper.insertBukuList(bukuList);
@@ -310,7 +308,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 book.isSaved = !book.isSaved;
                                               });
 
-                                            }, icon: Icons.bookmark_added_outlined ,title: "" )
+                                            }, icon: Icons.bookmark_added ,title: "" )
                                             :
                                             Button(onPressed: (){
                                               setState(() {
