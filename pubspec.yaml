@@ -40,6 +40,7 @@ dependencies:
   sqflite_common_ffi_web: ^1.0.2     # SQLite untuk web
   path_provider: ^2.1.1              # Mendapatkan path penyimpanan
   path: ^1.8.3    
+  email_validator: ^3.0.0
                      # Manipulasi path
 dev_dependencies:
   flutter_test:

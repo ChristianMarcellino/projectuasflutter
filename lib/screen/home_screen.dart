@@ -6,6 +6,8 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:projectuas/helper/database_helper.dart';
 import 'package:projectuas/data/buku_data.dart'; // Untuk fallback
 
+enum SortType { oldest, latest, highestRating }
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -16,7 +18,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  String searchQuery = "";
+  SortType _sortType = SortType.oldest;
+
   final TextEditingController _searchController = TextEditingController();
 
   List<Buku> _filteredBooks = [];
@@ -32,7 +35,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _searchController.addListener(_filterBook);
     _loadDataBuku();
-    searchQuery = "";
   }
 
   Future<void> _loadDataBuku() async {
@@ -45,7 +47,10 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() {
           _bukuList = bukuList;
           _filteredBooks = _bukuList;
-          _uniqueCategories = bukuList.map((buku)=> buku.category).toSet().toList();
+          _uniqueCategories = bukuList
+              .map((buku) => buku.category)
+              .toSet()
+              .toList();
           _categories.addAll(_uniqueCategories);
           _isLoading = false;
         });
@@ -53,27 +58,31 @@ class _HomeScreenState extends State<HomeScreen> {
       }
 
       final bukuListFromDb = await _dbHelper.getAllBuku();
-      if(bukuListFromDb.isEmpty){
+      if (bukuListFromDb.isEmpty) {
         await _dbHelper.insertBukuList(bukuList);
         final loadedDb = await _dbHelper.getAllBuku();
         setState(() {
           _bukuList = loadedDb;
           _filteredBooks = _bukuList;
-          _uniqueCategories = loadedDb.map((buku)=> buku.category).toSet().toList();
+          _uniqueCategories = loadedDb
+              .map((buku) => buku.category)
+              .toSet()
+              .toList();
           _categories.addAll(_uniqueCategories);
           _isLoading = false;
         });
-      }else {
+      } else {
         setState(() {
           _bukuList = bukuListFromDb;
           _filteredBooks = _bukuList;
-          _uniqueCategories = bukuListFromDb.map((buku)=> buku.category).toSet().toList();
+          _uniqueCategories = bukuListFromDb
+              .map((buku) => buku.category)
+              .toSet()
+              .toList();
           _categories.addAll(_uniqueCategories);
           _isLoading = false;
         });
-
       }
-
     } catch (e) {
       print('Error loading data from database: $e');
       setState(() {
@@ -91,12 +100,29 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _filterBook() {
+    final query = _searchController.text.toLowerCase();
+
+    List<Buku> result = _bukuList.where((book) {
+      final matchesName = book.name.toLowerCase().contains(query);
+      final matchesCategory =
+          category.isEmpty ||
+          book.category.toLowerCase() == category.toLowerCase();
+
+      return matchesName && matchesCategory;
+    }).toList();
+
+    // Sorting
+    if (_sortType == SortType.latest) {
+      result.sort((a, b) => b.id!.compareTo(a.id!));
+    } else if (_sortType == SortType.highestRating) {
+      result.sort((a, b) => b.rating.compareTo(a.rating));
+    } else if (_sortType == SortType.oldest) {
+      result.sort((a, b) => a.id!.compareTo(b.id!));
+    }
+
     setState(() {
-      searchQuery = _searchController.text.toLowerCase().trim();
+      _filteredBooks = result;
     });
-      _filteredBooks = _bukuList.where((book) {
-         return category.isEmpty ? book.name.toLowerCase().contains(searchQuery) : book.name.toLowerCase().contains(searchQuery) && book.category.toLowerCase() == category.toLowerCase();
-      }).toList();
   }
 
   @override
@@ -144,6 +170,141 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   children: [
                     SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Color(0xFF111827),
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black26,
+                                blurRadius: 6,
+                                offset: Offset(0, 2),
+                              ),
+                            ],
+                          ),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<SortType>(
+                              value: _sortType,
+                              dropdownColor: Color(0xFF111827),
+                              icon: Icon(
+                                Icons.keyboard_arrow_down,
+                                color: Colors.white,
+                              ),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              onChanged: (value) {
+                                if (value == null) return;
+                                setState(() {
+                                  _sortType = value;
+                                  _filterBook();
+                                });
+                              },
+                              items: [
+                                DropdownMenuItem(
+                                  value: SortType.oldest,
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.history,
+                                        color: Colors.white70,
+                                        size: 18,
+                                      ),
+                                      SizedBox(width: 8),
+                                      Text("Oldest"),
+                                    ],
+                                  ),
+                                ),
+                                DropdownMenuItem(
+                                  value: SortType.latest,
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.fiber_new,
+                                        color: Colors.white70,
+                                        size: 18,
+                                      ),
+                                      SizedBox(width: 8),
+                                      Text("Latest"),
+                                    ],
+                                  ),
+                                ),
+                                DropdownMenuItem(
+                                  value: SortType.highestRating,
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.star,
+                                        color: Colors.yellowAccent,
+                                        size: 18,
+                                      ),
+                                      SizedBox(width: 8),
+                                      Text("Highest Rating"),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                              selectedItemBuilder: (context) => [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.history,
+                                      color: Colors.white70,
+                                      size: 18,
+                                    ),
+                                    SizedBox(width: 8),
+                                    Text(
+                                      "Oldest",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.fiber_new,
+                                      color: Colors.white70,
+                                      size: 18,
+                                    ),
+                                    SizedBox(width: 8),
+                                    Text(
+                                      "Latest",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.yellowAccent,
+                                      size: 18,
+                                    ),
+                                    SizedBox(width: 8),
+                                    Text(
+                                      "Highest Rating",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                              itemHeight: 48,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+
                     SizedBox(
                       height: 50,
                       child: ListView.builder(
@@ -171,7 +332,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 onPressed: () {
                                   setState(() {
                                     _selectedIndex = index;
-                                    category = _categories[_selectedIndex] == "All" ? "" : _categories[_selectedIndex];
+                                    category =
+                                        _categories[_selectedIndex] == "All"
+                                        ? ""
+                                        : _categories[_selectedIndex];
                                     _filterBook();
                                   });
                                 },
@@ -206,7 +370,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     children: [
                                       ClipRRect(
                                         child: Image.network(
-                                          "https://marketplace.canva.com/EAGUhHGuQOg/1/0/1003w/canva-orange-and-blue-anime-cartoon-illustrative-novel-story-book-cover-WZE2VIj5AVQ.jpg",
+                                          book.imageUrl,
                                           fit: BoxFit.cover,
                                           width: 100,
                                           height: 180,
@@ -217,7 +381,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Expanded(
                                     child: Column(
                                       spacing: 7,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           book.name,
@@ -232,12 +397,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                         ),
                                         Container(
-                                          decoration : BoxDecoration(
-                          borderRadius : BorderRadius.circular(20),
-                                              border: Border.all(color: Color(0xFF374151)),
-                                              color: Color(0xFF1f2937),
-
-                          ),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(
+                                              20,
+                                            ),
+                                            border: Border.all(
+                                              color: Color(0xFF374151),
+                                            ),
+                                            color: Color(0xFF1f2937),
+                                          ),
                                           child: Padding(
                                             padding: const EdgeInsets.all(4.0),
                                             child: Text(
@@ -249,15 +417,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                         ),
                                         Row(
-                                          spacing: 5,
                                           children: [
                                             Row(
-                                              spacing: 3,
                                               children: [
                                                 Icon(
                                                   Icons.star,
                                                   color: Colors.yellow,
                                                 ),
+                                                SizedBox(width: 6),
                                                 Text(
                                                   book.rating.toString(),
                                                   style: TextStyle(
@@ -266,13 +433,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 ),
                                               ],
                                             ),
+                                            SizedBox(width: 12),
                                             Row(
-                                              spacing: 3,
                                               children: [
                                                 Icon(
-                                                  Icons.timer,
+                                                  Icons.menu_book,
                                                   color: Color(0xFF6B7280),
                                                 ),
+                                                SizedBox(width: 6),
                                                 Text(
                                                   "${book.pages} pages",
                                                   style: TextStyle(
@@ -284,41 +452,69 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ],
                                         ),
                                         Row(
-                                          spacing : 100,
+                                          spacing: 100,
                                           children: [
                                             Container(
-                                              decoration : BoxDecoration(
-                                                borderRadius : BorderRadius.circular(20),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
 
-                          color: Color(0xFF052e16),
+                                                color: Color(0xFF052e16),
                                               ),
                                               child: Padding(
-                                                padding: const EdgeInsets.all(8.0),
+                                                padding: const EdgeInsets.all(
+                                                  8.0,
+                                                ),
                                                 child: Text(
-                                                  book.availability ? "Available" : "Unavailable",
+                                                  book.availability
+                                                      ? "Available"
+                                                      : "Unavailable",
                                                   style: TextStyle(
-                                                    color: book.availability ? Color(0xFF4ade80) : Color(0xFFf87171)),
+                                                    color: book.availability
+                                                        ? Color(0xFF4ade80)
+                                                        : Color(0xFFf87171),
                                                   ),
                                                 ),
                                               ),
-                                            book.isSaved ?
-                                            Button(onPressed: (){
-                                              setState(() {
-                                                _dbHelper.toggleFavorite(book.id ?? 0, book.isSaved);
-                                                book.isSaved = !book.isSaved;
-                                              });
-
-                                            }, icon: Icons.bookmark_added ,title: "" )
-                                            :
-                                            Button(onPressed: (){
-                                              setState(() {
-                                                _dbHelper.toggleFavorite(book.id ?? 0, book.isSaved);
-                                                book.isSaved = !book.isSaved;
-                                              });
-
-                                            }, icon: Icons.bookmark_add_outlined ,title: ""),
+                                            ),
+                                            book.isSaved
+                                                ? Button(
+                                                    onPressed: () async {
+                                                      if (book.id != null) {
+                                                        await _dbHelper
+                                                            .toggleFavorite(
+                                                              book.id!,
+                                                              book.isSaved,
+                                                            );
+                                                        setState(() {
+                                                          book.isSaved =
+                                                              !book.isSaved;
+                                                        });
+                                                      }
+                                                    },
+                                                    icon: Icons.bookmark_added,
+                                                    title: "",
+                                                  )
+                                                : Button(
+                                                    onPressed: () async {
+                                                      if (book.id != null) {
+                                                        await _dbHelper
+                                                            .toggleFavorite(
+                                                              book.id!,
+                                                              book.isSaved,
+                                                            );
+                                                        setState(() {
+                                                          book.isSaved =
+                                                              !book.isSaved;
+                                                        });
+                                                      }
+                                                    },
+                                                    icon: Icons
+                                                        .bookmark_add_outlined,
+                                                    title: "",
+                                                  ),
                                           ],
-                                        )
+                                        ),
                                       ],
                                     ),
                                   ),

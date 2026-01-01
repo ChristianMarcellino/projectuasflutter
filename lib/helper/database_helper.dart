@@ -130,12 +130,12 @@ class DatabaseHelper {
     return List.generate(maps.length, (i) {
       return Buku.fromMap(maps[i]);
     });
-  }
+}
 
   Future<bool> isDatabaseEmpty() async {
     final db = await database;
     final count = Sqflite.firstIntValue(
-      await db.rawQuery('SELECT COUNT(*) FROM Buku'),
+      await db.rawQuery('SELECT COUNT(*) FROM buku'),
     );
     return count == 0;
   }

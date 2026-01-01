@@ -5,7 +5,7 @@ import 'package:projectuas/screen/ui/custom_form_field.dart';
 import 'package:projectuas/screen/ui/button.dart';
 import 'package:projectuas/screen/ui/redirect_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:email_validator/email_validator.dart';
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
@@ -17,7 +17,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  String? _errorText;
+  String? _errorTextEmail;
+  String? _errorTextPassword;
   bool isSucceed = false;
 
 
@@ -29,9 +30,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
     
     if (password.length < 8) {
       setState(() {
-        _errorText = "Minimal 8 Karakter";
+        _errorTextPassword = "Minimal 8 Karakter!";
       });
-    }else{
+    }else if (!EmailValidator.validate(email)){
+      setState(() {
+        _errorTextEmail = "Alamat Email Tidak Valid!";
+      });
+    }
+    else{
       prefs.setString("email", email);
       prefs.setString("username", username);
       prefs.setString("password", password);
@@ -87,6 +93,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       label: "Email",
                       controller: _emailController,
                       hint: "Enter your email",
+                      errorText: _errorTextEmail,
                     ),
 
                     SizedBox(height: 8),
@@ -101,7 +108,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       label: "Password",
                       controller: _passwordController,
                       hint: "Enter your password",
-                      errorText: _errorText,
+                      errorText: _errorTextPassword,
                       obscurePassword: _obscurePassword,
                       suffixIcon: IconButton(
                         onPressed: () {

@@ -90,20 +90,19 @@ class _MainScreenState extends State<MainScreen> {
   ];
   bool isSignedIn = false;
 
-  void getIsSignedIn() async {
+  void checkSignedIn() async{
     final prefs = await SharedPreferences.getInstance();
     isSignedIn = prefs.getBool("isSignedIn") ?? false;
-
+    if (!mounted) return;
     if(!isSignedIn){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen(),));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen(),));
     }
   }
 
   @override
    void initState () {
     super.initState();
-    getIsSignedIn();
-   
+    checkSignedIn();
   }
 
   @override

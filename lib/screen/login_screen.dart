@@ -28,7 +28,12 @@ class _LoginScreenState extends State<LoginScreen> {
     final String enteredPassword = _passwordController.text.trim();
     isSignedIn = prefs.getBool("isSignedIn") ?? false;
 
-    if (savedEmail.isEmpty || savedPassword.isEmpty) {
+    if (enteredEmail.isEmpty || enteredPassword.isEmpty) {
+      setState(() {
+        _errorText = "Email dan Password Wajib Diisi";
+      });
+      return;
+    } else if (savedEmail.isEmpty || savedPassword.isEmpty) {
       setState(() {
         _errorText = "Akun Belum Terdaftar";
       });
@@ -38,24 +43,17 @@ class _LoginScreenState extends State<LoginScreen> {
         _errorText = "Email atau Password Salah";
       });
       return;
-    } else if (enteredEmail.isEmpty || enteredPassword.isEmpty) {
-      setState(() {
-        _errorText = "Email dan Password Wajib Diisi";
-      });
-      return;
     } else {
+      await prefs.setBool("isSignedIn", true);
       setState(() {
-        _errorText = "";
+        _errorText = null;
       });
-
-    }
-
-    if (isSignedIn) {
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => MainScreen()),
       );
     }
+
   }
 
   bool _obscurePassword = true;
