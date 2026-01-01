@@ -43,6 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
     try {
+      // Data Desktop
       if (kIsWeb) {
         setState(() {
           _bukuList = bukuList;
@@ -56,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
         });
         return;
       }
-
+      // Data Mobile
       final bukuListFromDb = await _dbHelper.getAllBuku();
       if (bukuListFromDb.isEmpty) {
         await _dbHelper.insertBukuList(bukuList);
@@ -100,6 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _filterBook() {
+    // Filter Search
     final query = _searchController.text.toLowerCase();
 
     List<Buku> result = _bukuList.where((book) {
