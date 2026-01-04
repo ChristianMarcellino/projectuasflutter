@@ -98,11 +98,37 @@ class _SavedScreen extends State<SavedScreen> {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(10),
-                            child: Image.asset(
-                              'images/Gambar_1.jpg',
+                            child: Image.network(
+                              buku.imageUrl,
                               width: 80,
                               height: 150,
                               fit: BoxFit.cover,
+                              /*
+                              loadingBuilder: (context, child, progress) {
+                                if (progress == null) return child;
+                                return Container(
+                                  width: 80,
+                                  height: 150,
+                                  color: Color(0xFF0B1220),
+                                  child: Center(
+                                    child: CircularProgressIndicator(
+                                      value: progress.expectedTotalBytes != null
+                                          ? progress.cumulativeBytesLoaded / progress.expectedTotalBytes!
+                                          : null,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
+                                );
+                              },
+                              errorBuilder: (context, error, stackTrace) {
+                                return Container(
+                                  width: 80,
+                                  height: 150,
+                                  color: Colors.grey,
+                                  child: Icon(Icons.broken_image, color: Colors.white),
+                                );
+                              },
+                              */
                             ),
                           ),
                           SizedBox(width: 12),
