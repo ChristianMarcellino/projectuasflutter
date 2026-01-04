@@ -126,7 +126,7 @@ class DetailScreen extends StatelessWidget {
                               const Icon(Icons.schedule, size: 28, color: Colors.purpleAccent),
                               const SizedBox(height: 8),
                               const Text(
-                                'Pagess',
+                                'Pages',
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Colors.purpleAccent,
