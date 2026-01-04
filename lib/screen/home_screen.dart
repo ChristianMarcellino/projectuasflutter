@@ -447,7 +447,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   ),
                                                 ],
                                               ),
-                                              SizedBox(width: 12),
+                                              SizedBox(width: 6),
                                               Row(
                                                 children: [
                                                   Icon(
@@ -466,7 +466,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ],
                                           ),
                                           Row(
-                                            spacing: 100,
+                                            spacing:
+                                                MediaQuery.sizeOf(
+                                                      context,
+                                                    ).width >
+                                                    320
+                                                ? 60
+                                                : 0,
                                             children: [
                                               Container(
                                                 decoration: BoxDecoration(
