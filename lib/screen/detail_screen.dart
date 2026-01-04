@@ -93,9 +93,9 @@ class DetailScreen extends StatelessWidget {
                     children: [
                       const Icon(Icons.star, size: 20, color: Colors.amber),
                       const SizedBox(width: 4),
-                      const Text(
-                        '4.9',
-                        style: TextStyle(
+                      Text(
+                        buku.rating.toString(),
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
@@ -133,9 +133,9 @@ class DetailScreen extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 4),
-                              const Text(
-                                '456',
-                                style: TextStyle(
+                              Text(
+                                buku.pages.toString(),
+                                style: const TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
@@ -165,9 +165,9 @@ class DetailScreen extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 4),
-                              const Text(
-                                '2020',
-                                style: TextStyle(
+                              Text(
+                                buku.published.toString(),
+                                style: const TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
