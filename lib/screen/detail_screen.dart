@@ -123,13 +123,13 @@ class DetailScreen extends StatelessWidget {
                           ),
                           child: Column(
                             children: [
-                              const Icon(Icons.schedule, size: 28, color: Colors.white70),
+                              const Icon(Icons.schedule, size: 28, color: Colors.purpleAccent),
                               const SizedBox(height: 8),
                               const Text(
-                                'Pages',
+                                'Pagess',
                                 style: TextStyle(
                                   fontSize: 12,
-                                  color: Colors.white70,
+                                  color: Colors.purpleAccent,
                                 ),
                               ),
                               const SizedBox(height: 4),
@@ -155,13 +155,13 @@ class DetailScreen extends StatelessWidget {
                           ),
                           child: Column(
                             children: [
-                              const Icon(Icons.calendar_today, size: 28, color: Colors.white70),
+                              const Icon(Icons.calendar_today, size: 28, color: Colors.blueAccent),
                               const SizedBox(height: 8),
                               const Text(
                                 'Published',
                                 style: TextStyle(
                                   fontSize: 12,
-                                  color: Colors.white70,
+                                  color: Colors.blueAccent,
                                 ),
                               ),
                               const SizedBox(height: 4),
