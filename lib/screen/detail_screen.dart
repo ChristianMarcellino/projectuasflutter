@@ -43,8 +43,14 @@ class DetailScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  // Price
-                  const SizedBox(height: 16),
+                  // Author
+                  Text(
+                    'by ${buku.writer}',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey,
+                    ),
+                  ),
                   // Description Title
                   const Text(
                     'Description',
@@ -52,12 +58,20 @@ class DetailScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   // Description
-                  Text(
-                    buku.description,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      height: 1.5,
-                      color: Colors.grey,
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(12.0),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[100],
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: Text(
+                      buku.description,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        height: 1.5,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 32),
