@@ -4,7 +4,7 @@ import 'package:projectuas/model/buku.dart';
 var bukuList = [
   Buku(
     id: 1,
-    availability: true,
+    availability: false,
     category: "Fantasy",
     writer: "J.K. Rowling",
     description:
@@ -18,7 +18,7 @@ var bukuList = [
   ),
   Buku(
     id: 2,
-    availability: true,
+    availability: false,
     category: "Fantasy",
     writer: "J.R.R. Tolkien",
     description: "A hobbit embarks on a journey to destroy a powerful ring.",
