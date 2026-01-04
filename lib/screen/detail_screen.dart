@@ -218,20 +218,20 @@ class DetailScreen extends StatelessWidget {
                         const SizedBox(height: 8),
                         Row(
                           children: [
-                            const Text(
-                              'Available Now',
+                            Text(
+                              buku.availability ? 'Available Now' : 'Not Available',
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
-                                color: Color(0xFF10b981),
+                                color: buku.availability ? const Color(0xFF10b981) : Colors.red,
                               ),
                             ),
                             const Spacer(),
                             Container(
                               width: 10,
                               height: 10,
-                              decoration: const BoxDecoration(
-                                color: Color(0xFF10b981),
+                              decoration: BoxDecoration(
+                                color: buku.availability ? const Color(0xFF10b981) : Colors.red,
                                 shape: BoxShape.circle,
                               ),
                             ),
