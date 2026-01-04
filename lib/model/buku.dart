@@ -9,6 +9,7 @@ class Buku {
   final int pages;
   final String imageUrl;
   bool isSaved;
+  final int published;
 
   Buku({
     this.id,
@@ -21,13 +22,14 @@ class Buku {
     required this.isSaved,
     required this.pages,
     required this.rating,
+    required this.published,
   });
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'name': name,
-      "writer" : writer,
+      "writer": writer,
       'category': category,
       'description': description,
       'availability': availability ? 1 : 0,
@@ -35,6 +37,7 @@ class Buku {
       'isSaved': isSaved ? 1 : 0,
       "pages": pages,
       "rating": rating,
+      "published": published,
     };
   }
 
@@ -42,7 +45,7 @@ class Buku {
     return Buku(
       id: map['id'],
       name: map['name'],
-      writer : map['writer'],
+      writer: map['writer'],
       category: map['category'],
       description: map['description'],
       availability: map['availability'] == 1,
@@ -50,6 +53,7 @@ class Buku {
       imageUrl: map['imageUrl'],
       pages: map["pages"],
       rating: map["rating"],
+      published: map["published"],
     );
   }
 }

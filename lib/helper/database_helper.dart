@@ -67,7 +67,8 @@ class DatabaseHelper {
         isSaved INTEGER NOT NULL DEFAULT 0,
         rating REAL NOT NULL,
         pages INTEGER NOT NULL,
-        imageUrl TEXT NOT NULL
+        imageUrl TEXT NOT NULL,
+        published INTEGER NOT NULL
       )
   ''');
   }
@@ -130,7 +131,7 @@ class DatabaseHelper {
     return List.generate(maps.length, (i) {
       return Buku.fromMap(maps[i]);
     });
-}
+  }
 
   Future<bool> isDatabaseEmpty() async {
     final db = await database;

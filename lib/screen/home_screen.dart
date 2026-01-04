@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projectuas/model/buku.dart';
+import 'package:projectuas/screen/detail_screen.dart';
 import 'package:projectuas/screen/ui/button.dart';
 import 'package:projectuas/screen/ui/custom_form_field.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -357,170 +358,183 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemCount: _filteredBooks.length,
                         itemBuilder: (context, index) {
                           final book = _filteredBooks[index];
-                          return Card(
-                            elevation: 1,
-                            margin: EdgeInsets.all(8),
-                            color: Color(0xFF111827),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                spacing: 15,
-                                children: [
-                                  Stack(
-                                    children: [
-                                      ClipRRect(
-                                        child: Image.network(
-                                          book.imageUrl,
-                                          fit: BoxFit.cover,
-                                          width: 100,
-                                          height: 180,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      spacing: 7,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      DetailScreen(buku: book),
+                                ),
+                              );
+                            },
+                            child: Card(
+                              elevation: 1,
+                              margin: EdgeInsets.all(8),
+                              color: Color(0xFF111827),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  spacing: 15,
+                                  children: [
+                                    Stack(
                                       children: [
-                                        Text(
-                                          book.name,
-                                          style: TextStyle(
-                                            color: Colors.yellow,
+                                        ClipRRect(
+                                          child: Image.network(
+                                            book.imageUrl,
+                                            fit: BoxFit.cover,
+                                            width: 100,
+                                            height: 180,
                                           ),
-                                        ),
-                                        Text(
-                                          book.writer,
-                                          style: TextStyle(
-                                            color: Color(0xFF6B7280),
-                                          ),
-                                        ),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(
-                                              20,
-                                            ),
-                                            border: Border.all(
-                                              color: Color(0xFF374151),
-                                            ),
-                                            color: Color(0xFF1f2937),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(4.0),
-                                            child: Text(
-                                              book.category,
-                                              style: TextStyle(
-                                                color: Color(0xFFc084fc),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Row(
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Icon(
-                                                  Icons.star,
-                                                  color: Colors.yellow,
-                                                ),
-                                                SizedBox(width: 6),
-                                                Text(
-                                                  book.rating.toString(),
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(width: 12),
-                                            Row(
-                                              children: [
-                                                Icon(
-                                                  Icons.menu_book,
-                                                  color: Color(0xFF6B7280),
-                                                ),
-                                                SizedBox(width: 6),
-                                                Text(
-                                                  "${book.pages} pages",
-                                                  style: TextStyle(
-                                                    color: Color(0xFF6B7280),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          spacing: 100,
-                                          children: [
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-
-                                                color: Color(0xFF052e16),
-                                              ),
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(
-                                                  8.0,
-                                                ),
-                                                child: Text(
-                                                  book.availability
-                                                      ? "Available"
-                                                      : "Unavailable",
-                                                  style: TextStyle(
-                                                    color: book.availability
-                                                        ? Color(0xFF4ade80)
-                                                        : Color(0xFFf87171),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            book.isSaved
-                                                ? Button(
-                                                    onPressed: () async {
-                                                      if (book.id != null) {
-                                                        await _dbHelper
-                                                            .toggleFavorite(
-                                                              book.id!,
-                                                              book.isSaved,
-                                                            );
-                                                        setState(() {
-                                                          book.isSaved =
-                                                              !book.isSaved;
-                                                        });
-                                                      }
-                                                    },
-                                                    icon: Icons.bookmark_added,
-                                                    title: "",
-                                                  )
-                                                : Button(
-                                                    onPressed: () async {
-                                                      if (book.id != null) {
-                                                        await _dbHelper
-                                                            .toggleFavorite(
-                                                              book.id!,
-                                                              book.isSaved,
-                                                            );
-                                                        setState(() {
-                                                          book.isSaved =
-                                                              !book.isSaved;
-                                                        });
-                                                      }
-                                                    },
-                                                    icon: Icons
-                                                        .bookmark_add_outlined,
-                                                    title: "",
-                                                  ),
-                                          ],
                                         ),
                                       ],
                                     ),
-                                  ),
-                                ],
+                                    Expanded(
+                                      child: Column(
+                                        spacing: 7,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            book.name,
+                                            style: TextStyle(
+                                              color: Colors.yellow,
+                                            ),
+                                          ),
+                                          Text(
+                                            book.writer,
+                                            style: TextStyle(
+                                              color: Color(0xFF6B7280),
+                                            ),
+                                          ),
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              border: Border.all(
+                                                color: Color(0xFF374151),
+                                              ),
+                                              color: Color(0xFF1f2937),
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(
+                                                4.0,
+                                              ),
+                                              child: Text(
+                                                book.category,
+                                                style: TextStyle(
+                                                  color: Color(0xFFc084fc),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.star,
+                                                    color: Colors.yellow,
+                                                  ),
+                                                  SizedBox(width: 6),
+                                                  Text(
+                                                    book.rating.toString(),
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(width: 12),
+                                              Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.menu_book,
+                                                    color: Color(0xFF6B7280),
+                                                  ),
+                                                  SizedBox(width: 6),
+                                                  Text(
+                                                    "${book.pages} pages",
+                                                    style: TextStyle(
+                                                      color: Color(0xFF6B7280),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            spacing: 100,
+                                            children: [
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+
+                                                  color: Color(0xFF052e16),
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(
+                                                    8.0,
+                                                  ),
+                                                  child: Text(
+                                                    book.availability
+                                                        ? "Available"
+                                                        : "Unavailable",
+                                                    style: TextStyle(
+                                                      color: book.availability
+                                                          ? Color(0xFF4ade80)
+                                                          : Color(0xFFf87171),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              book.isSaved
+                                                  ? Button(
+                                                      onPressed: () async {
+                                                        if (book.id != null) {
+                                                          await _dbHelper
+                                                              .toggleFavorite(
+                                                                book.id!,
+                                                                book.isSaved,
+                                                              );
+                                                          setState(() {
+                                                            book.isSaved =
+                                                                !book.isSaved;
+                                                          });
+                                                        }
+                                                      },
+                                                      icon:
+                                                          Icons.bookmark_added,
+                                                      title: "",
+                                                    )
+                                                  : Button(
+                                                      onPressed: () async {
+                                                        if (book.id != null) {
+                                                          await _dbHelper
+                                                              .toggleFavorite(
+                                                                book.id!,
+                                                                book.isSaved,
+                                                              );
+                                                          setState(() {
+                                                            book.isSaved =
+                                                                !book.isSaved;
+                                                          });
+                                                        }
+                                                      },
+                                                      icon: Icons
+                                                          .bookmark_add_outlined,
+                                                      title: "",
+                                                    ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           );

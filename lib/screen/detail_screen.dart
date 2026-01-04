@@ -1,27 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:projectuas/model/buku.dart';
 
 class DetailScreen extends StatelessWidget {
-  final String title;
-  final String description;
-  final String imageUrl;
-  final double price;
+  final Buku buku;
 
-  const DetailScreen({
-    Key? key,
-    required this.title,
-    required this.description,
-    required this.imageUrl,
-    required this.price,
-  }) : super(key: key);
-
+  const DetailScreen({super.key, required this.buku});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-        centerTitle: true,
-        elevation: 0,
-      ),
+      appBar: AppBar(title: Text(buku.name), centerTitle: true, elevation: 0),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,7 +19,7 @@ class DetailScreen extends StatelessWidget {
               height: 300,
               color: Colors.grey[200],
               child: Image.network(
-                imageUrl,
+                buku.imageUrl,
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
                   return Center(
@@ -49,7 +36,7 @@ class DetailScreen extends StatelessWidget {
                 children: [
                   // Title
                   Text(
-                    title,
+                    buku.name,
                     style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -57,27 +44,16 @@ class DetailScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   // Price
-                  Text(
-                    'Rp ${price.toStringAsFixed(0)}',
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.green,
-                    ),
-                  ),
                   const SizedBox(height: 16),
                   // Description Title
                   const Text(
                     'Description',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
                   // Description
                   Text(
-                    description,
+                    buku.description,
                     style: const TextStyle(
                       fontSize: 14,
                       height: 1.5,

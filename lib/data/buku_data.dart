@@ -14,6 +14,7 @@ var bukuList = [
     name: "Harry Potter and the Sorcerer's Stone",
     pages: 309,
     rating: 4.8,
+    published: 2000,
   ),
   Buku(
     id: 2,
@@ -26,6 +27,7 @@ var bukuList = [
     name: "The Hobbit",
     pages: 310,
     rating: 4.7,
+    published: 2000
   ),
   Buku(
     id: 3,
@@ -39,6 +41,7 @@ var bukuList = [
     name: "1984",
     pages: 328,
     rating: 4.6,
+    published: 2000
   ),
   Buku(
     id: 4,
@@ -51,6 +54,7 @@ var bukuList = [
     name: "To Kill a Mockingbird",
     pages: 281,
     rating: 4.9,
+    published: 2000
   ),
   Buku(
     id: 5,
@@ -63,6 +67,7 @@ var bukuList = [
     name: "Atomic Habits",
     pages: 320,
     rating: 4.8,
+    published: 2000
   ),
   Buku(
     id: 6,
@@ -75,5 +80,6 @@ var bukuList = [
     name: "Clean Code",
     pages: 464,
     rating: 4.7,
+    published: 2000
   ),
 ];
