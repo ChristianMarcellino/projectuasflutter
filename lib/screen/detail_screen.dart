@@ -17,7 +17,7 @@ class DetailScreen extends StatelessWidget {
             Container(
               width: double.infinity,
               height: 300,
-              color: Colors.grey[200],
+              color: Colors.black12,
               child: Image.network(
                 buku.imageUrl,
                 fit: BoxFit.cover,
@@ -48,7 +48,7 @@ class DetailScreen extends StatelessWidget {
                     'by ${buku.writer}',
                     style: const TextStyle(
                       fontSize: 16,
-                      color: Colors.grey,
+                      color: Colors.black87,
                     ),
                   ),
                   // Description Title
@@ -62,7 +62,7 @@ class DetailScreen extends StatelessWidget {
                     width: double.infinity,
                     padding: const EdgeInsets.all(12.0),
                     decoration: BoxDecoration(
-                      color: Colors.grey[100],
+                      color: Colors.black12,
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                     child: Text(
@@ -71,29 +71,6 @@ class DetailScreen extends StatelessWidget {
                         fontSize: 14,
                         height: 1.5,
                         color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-                  // Buy Button
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Added to cart!')),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: const Text(
-                        'Add to Cart',
-                        style: TextStyle(fontSize: 16, color: Colors.white),
                       ),
                     ),
                   ),
