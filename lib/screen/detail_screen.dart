@@ -29,7 +29,6 @@ class DetailScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Image Section
             Container(
               width: double.infinity,
               height: 250,
@@ -44,22 +43,20 @@ class DetailScreen extends StatelessWidget {
                 },
               ),
             ),
-            // Content Section
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Category Badge
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
                       color: const Color(0xFF7c3aed),
                       borderRadius: BorderRadius.circular(16),
                     ),
-                    child: const Text(
-                      'Literature',
-                      style: TextStyle(
+                    child: Text(
+                      buku.category,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 12,
                         fontWeight: FontWeight.w500,
@@ -77,7 +74,6 @@ class DetailScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  // Author with icon
                   Row(
                     children: [
                       const Icon(Icons.person, size: 18, color: Colors.white70),
@@ -116,10 +112,8 @@ class DetailScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 24),
-                  // Info Boxes (Pages and Published)
                   Row(
                     children: [
-                      // Pages Box
                       Expanded(
                         child: Container(
                           padding: const EdgeInsets.all(16),
@@ -152,7 +146,6 @@ class DetailScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 16),
-                      // Published Box
                       Expanded(
                         child: Container(
                           padding: const EdgeInsets.all(16),
@@ -187,7 +180,6 @@ class DetailScreen extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 24),
-                  // About this book section
                   const Text(
                     'About this book',
                     style: TextStyle(
@@ -197,7 +189,6 @@ class DetailScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  // Description
                   Text(
                     buku.description,
                     style: const TextStyle(
@@ -207,7 +198,6 @@ class DetailScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 24),
-                  // Availability Section
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(16),
