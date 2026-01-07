@@ -504,7 +504,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           await _dbHelper
                                                               .toggleFavorite(
                                                                 book.id!,
-                                                                book.isSaved,
+                                                                !book.isSaved,
                                                               );
                                                           setState(() {
                                                             book.isSaved =
@@ -522,7 +522,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           await _dbHelper
                                                               .toggleFavorite(
                                                                 book.id!,
-                                                                book.isSaved,
+                                                                !book.isSaved,
                                                               );
                                                           setState(() {
                                                             book.isSaved =
