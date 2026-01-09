@@ -17,11 +17,22 @@ class _SavedScreen extends State<SavedScreen> {
 
   String searchQuery = "";
   List<Buku> savedBooks = [];
+  List<Buku> displayedBooks = [];
+  final DatabaseHelper _dbHelper = DatabaseHelper();
 
   @override
   void initState() {
     super.initState();
-    savedBooks = bukuList.where((buku) => buku.isSaved).toList();
+    _searchController.addListener(_filterSavedBooks);
+    _loadSavedBooks();
+  }
+
+  Future<void> _loadSavedBooks() async {
+    final favs = await _dbHelper.getFavoriteBuku();
+    setState(() {
+      savedBooks = favs;
+      displayedBooks = List.from(savedBooks);
+    });
   }
 
   @override
@@ -81,121 +92,161 @@ class _SavedScreen extends State<SavedScreen> {
                   style: TextStyle(color: Colors.white54, fontSize: 16),
                 ),
               )
-            : ListView.builder(
-                itemCount: savedBooks.length,
-                itemBuilder: (context, index) {
-                  final buku = savedBooks[index];
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 16),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 14),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF1A1F32),
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.asset(
-                              'images/Gambar_1.jpg',
-                              width: 80,
-                              height: 150,
-                              fit: BoxFit.cover,
+            : displayedBooks.isEmpty
+                ? Center(
+                    child: Text(
+                      "No books match your search",
+                      style: TextStyle(color: Colors.white54, fontSize: 16),
+                    ),
+                  )
+                : RefreshIndicator(
+                    onRefresh: _loadSavedBooks,
+                    child: ListView.builder(
+                      physics: AlwaysScrollableScrollPhysics(),
+                      itemCount: displayedBooks.length,
+                      itemBuilder: (context, index) {
+                        final buku = displayedBooks[index];
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 16),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 14),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF1A1F32),
+                              borderRadius: BorderRadius.circular(14),
                             ),
-                          ),
-                          SizedBox(width: 12),
-                          Expanded(
-                            child: Column(
+                            child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  buku.name,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.network(
+                                    buku.imageUrl,
+                                    width: 80,
+                                    height: 150,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) => Container(
+                                      width: 80,
+                                      height: 150,
+                                      color: Colors.grey[800],
+                                      child: Icon(Icons.broken_image, color: Colors.white54),
+                                    ),
                                   ),
                                 ),
-                                Text(
-                                  buku.category,
-                                  style: const TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 15,
+                                SizedBox(width: 12),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        buku.name,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        buku.category,
+                                        style: const TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 15,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Chip(
+                                          label: Text(
+                                            buku.category,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                          backgroundColor: const Color(0xFF151a2b),
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Icon(Icons.star, color: Colors.yellow, size: 15),
+                                          SizedBox(width: 4),
+                                          Text(
+                                            "${buku.rating}",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          SizedBox(width: 10),
+                                          Icon(Icons.circle, color: Colors.grey, size: 15),
+                                          SizedBox(width: 4),
+                                          Text(
+                                            "${buku.pages}p",
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "Saved",
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 20,
+                                            ),
+                                          ),
+                                          Expanded(child: Container(width: double.infinity)),
+                                          IconButton(
+                                            icon: Icon(Icons.delete, color: Colors.grey),
+                                            onPressed: () {
+                                              _deleteBuku(index);
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Chip(
-                                    label: Text(
-                                      buku.category,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 15,
-                                      ),
-                                    ),
-                                    backgroundColor: const Color(0xFF151a2b),
-                                  ),
-                                ),
-                                Row(
-                                  children: [
-                                    Icon(Icons.star, color: Colors.yellow, size: 15),
-                                    SizedBox(width: 4),
-                                    Text(
-                                      "${buku.rating}",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(width: 10),
-                                    Icon(Icons.circle, color: Colors.grey, size: 15),
-                                    SizedBox(width: 4),
-                                    Text(
-                                      "${buku.pages}p",
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 15,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      "Saved",
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 20,
-                                      ),
-                                    ),
-                                    Expanded(child: Container(width: double.infinity)),
-                                    IconButton(
-                                      icon: Icon(Icons.delete, color: Colors.grey),
-                                      onPressed: () {
-                                        _deleteBuku(index);
-                                      },
-                                    ),
-
-                                  ],
                                 ),
                               ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
+                        );
+                      },
               ),
         
       ),
-    );
+    ), 
+  
+  );  
+}
+
+  void _filterSavedBooks() {
+    final query = _searchController.text.toLowerCase();
+    setState(() {
+      if (query.isEmpty) {
+        displayedBooks = List.from(savedBooks);
+      } else {
+        final tokens = query.split(RegExp(r'\s+')).where((t) => t.isNotEmpty).toList();
+        displayedBooks = savedBooks.where((buku) {
+          final nameWords = buku.name.toLowerCase().split(RegExp(r'\s+'));
+          return tokens.every((token) => nameWords.any((word) => word.startsWith(token)));
+        }).toList();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _searchController.removeListener(_filterSavedBooks);
+    _searchController.dispose();
+    super.dispose();
   }
 
   void _deleteBuku(int index) {
+    final bukuToDelete = displayedBooks[index];
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -205,7 +256,7 @@ class _SavedScreen extends State<SavedScreen> {
           style: TextStyle(color: Colors.white),
         ),
         content: Text(
-          "Are you sure you want to remove '${savedBooks[index].name}' from your saved books?",
+          "Are you sure you want to remove '${bukuToDelete.name}' from your saved books?",
           style: TextStyle(color: Colors.white70),
         ),
         actions: [
@@ -214,10 +265,16 @@ class _SavedScreen extends State<SavedScreen> {
             child: Text("Cancel", style: TextStyle(color: Colors.grey)),
           ),
           TextButton(
-            onPressed: () {
+            onPressed: () async {
+              // Persist change in database
+              if (bukuToDelete.id != null) {
+                await _dbHelper.toggleFavorite(bukuToDelete.id!, false);
+              }
+
               setState(() {
-                savedBooks[index].isSaved = false;
-                savedBooks.removeAt(index);
+                bukuToDelete.isSaved = false;
+                savedBooks.removeWhere((b) => b.id == bukuToDelete.id);
+                displayedBooks.removeAt(index);
               });
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
