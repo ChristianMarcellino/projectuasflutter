@@ -16,14 +16,11 @@ class DetailScreen extends StatelessWidget {
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text('Book Details', style: TextStyle(color: Colors.white)),
+        title: const Text(
+          'Book Details',
+          style: TextStyle(color: Colors.white),
+        ),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.bookmark, color: Colors.white),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -38,7 +35,11 @@ class DetailScreen extends StatelessWidget {
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
                   return const Center(
-                    child: Icon(Icons.image_not_supported, size: 80, color: Colors.white),
+                    child: Icon(
+                      Icons.image_not_supported,
+                      size: 80,
+                      color: Colors.white,
+                    ),
                   );
                 },
               ),
@@ -49,7 +50,10 @@ class DetailScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
                     decoration: BoxDecoration(
                       color: const Color(0xFF7c3aed),
                       borderRadius: BorderRadius.circular(16),
@@ -104,10 +108,7 @@ class DetailScreen extends StatelessWidget {
                       const SizedBox(width: 4),
                       const Text(
                         '(512 reviews)',
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.white70,
-                        ),
+                        style: TextStyle(fontSize: 13, color: Colors.white70),
                       ),
                     ],
                   ),
@@ -123,7 +124,11 @@ class DetailScreen extends StatelessWidget {
                           ),
                           child: Column(
                             children: [
-                              const Icon(Icons.schedule, size: 28, color: Colors.purpleAccent),
+                              const Icon(
+                                Icons.schedule,
+                                size: 28,
+                                color: Colors.purpleAccent,
+                              ),
                               const SizedBox(height: 8),
                               const Text(
                                 'Pages',
@@ -155,7 +160,11 @@ class DetailScreen extends StatelessWidget {
                           ),
                           child: Column(
                             children: [
-                              const Icon(Icons.calendar_today, size: 28, color: Colors.blueAccent),
+                              const Icon(
+                                Icons.calendar_today,
+                                size: 28,
+                                color: Colors.blueAccent,
+                              ),
                               const SizedBox(height: 8),
                               const Text(
                                 'Published',
@@ -210,20 +219,21 @@ class DetailScreen extends StatelessWidget {
                       children: [
                         const Text(
                           'Availability',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.white70,
-                          ),
+                          style: TextStyle(fontSize: 12, color: Colors.white70),
                         ),
                         const SizedBox(height: 8),
                         Row(
                           children: [
                             Text(
-                              buku.availability ? 'Available Now' : 'Not Available',
+                              buku.availability
+                                  ? 'Available Now'
+                                  : 'Not Available',
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
-                                color: buku.availability ? const Color(0xFF10b981) : Colors.red,
+                                color: buku.availability
+                                    ? const Color(0xFF10b981)
+                                    : Colors.red,
                               ),
                             ),
                             const Spacer(),
@@ -231,7 +241,9 @@ class DetailScreen extends StatelessWidget {
                               width: 10,
                               height: 10,
                               decoration: BoxDecoration(
-                                color: buku.availability ? const Color(0xFF10b981) : Colors.red,
+                                color: buku.availability
+                                    ? const Color(0xFF10b981)
+                                    : Colors.red,
                                 shape: BoxShape.circle,
                               ),
                             ),

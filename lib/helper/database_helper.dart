@@ -93,7 +93,7 @@ class DatabaseHelper {
     final db = await database;
     return await db.update(
       'buku',
-      {'isSaved': isSaved ? 1 : 0},
+      {'isSaved': isSaved ? 0 : 1},
       where: 'id = ?',
       whereArgs: [id],
     );

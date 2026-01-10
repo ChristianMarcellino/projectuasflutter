@@ -387,6 +387,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                             fit: BoxFit.cover,
                                             width: 100,
                                             height: 180,
+                                            errorBuilder:
+                                                (context, error, stackTrace) {
+                                                  return Container(
+                                                    width: 100,
+                                                    height: 180,
+                                                    color: Colors.grey,
+                                                    child: Icon(
+                                                      Icons.book,
+                                                      size: 50,
+                                                      color: Colors.white,
+                                                    ),
+                                                  );
+                                                },
                                           ),
                                         ),
                                       ],
