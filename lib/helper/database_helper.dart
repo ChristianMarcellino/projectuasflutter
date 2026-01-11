@@ -27,33 +27,27 @@ class DatabaseHelper {
     return _database!;
   }
 
-  Future<Database> _initDatabase() async {
-    // Untuk Web platform
-    if (kIsWeb) {
-      databaseFactory = databaseFactoryFfiWeb;
-      return await openDatabase(
-        'perpustakaan.db',
-        version: 1,
-        onCreate: _onCreate,
-      );
-    }
-
-    // Untuk Desktop (Windows, Linux, macOS)
-    if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-      sqfliteFfiInit();
-      databaseFactory = databaseFactoryFfi;
-      final appDocumentsDirectory = await getApplicationDocumentsDirectory();
-      String path = join(appDocumentsDirectory.path, 'perpustakaan.db');
-      print('📁 Database location (Desktop): $path');
-      return await openDatabase(path, version: 1, onCreate: _onCreate);
-    }
-
-    // Untuk Mobile (Android/iOS)
-    String databasesPath = await getDatabasesPath();
-    String path = join(databasesPath, 'perpustakaan.db');
-    print('📁 Database location (Mobile): $path');
-    return await openDatabase(path, version: 1, onCreate: _onCreate);
+ Future<Database> _initDatabase() async {
+  if (kIsWeb) {
+    databaseFactory = databaseFactoryFfiWeb;
+    return await openDatabase(
+      'perpustakaan.db',
+      version: 1,
+      onCreate: _onCreate,
+    );
   }
+
+  // Diluar Web
+  sqfliteFfiInit();
+  databaseFactory = databaseFactoryFfi;
+
+  final appDocumentsDirectory =
+      await getApplicationDocumentsDirectory();
+
+  final path = join(appDocumentsDirectory.path, 'perpustakaan.db');
+  return await openDatabase(path, version: 1, onCreate: _onCreate);
+}
+
 
   Future<void> _onCreate(Database db, int version) async {
     await db.execute('''
