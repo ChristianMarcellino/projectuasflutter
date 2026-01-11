@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
               .map((buku) => buku.category)
               .toSet()
               .toList();
-          _categories.addAll(_uniqueCategories);
+          _categories = ["All", ..._uniqueCategories];
           _isLoading = false;
         });
       } else {
@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
               .map((buku) => buku.category)
               .toSet()
               .toList();
-          _categories.addAll(_uniqueCategories);
+          _categories = ["All", ..._uniqueCategories];
           _isLoading = false;
         });
       }
