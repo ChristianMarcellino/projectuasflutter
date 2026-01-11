@@ -44,21 +44,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
     try {
-      // Data Desktop
-      if (kIsWeb) {
-        setState(() {
-          _bukuList = bukuList;
-          _filteredBooks = _bukuList;
-          _uniqueCategories = bukuList
-              .map((buku) => buku.category)
-              .toSet()
-              .toList();
-          _categories.addAll(_uniqueCategories);
-          _isLoading = false;
-        });
-        return;
-      }
-      // Data Mobile
       final bukuListFromDb = await _dbHelper.getAllBuku();
       if (bukuListFromDb.isEmpty) {
         await _dbHelper.insertBukuList(bukuList);

@@ -73,13 +73,7 @@ class DatabaseHelper {
   ''');
   }
 
-  // Insert single record
-  Future<int> insertBuku(Buku buku) async {
-    final db = await database;
-    return await db.insert('buku', buku.toMap());
-  }
-
-  // Insert batch (untuk migrasi data)
+  // Insert batch
   Future<void> insertBukuList(List<Buku> bukuList) async {
     final db = await database;
     Batch batch = db.batch();
@@ -108,18 +102,6 @@ class DatabaseHelper {
     });
   }
 
-  // Get by ID
-  Future<Buku?> getBukuById(int id) async {
-    final db = await database;
-    final List<Map<String, dynamic>> maps = await db.query(
-      'buku',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
-    if (maps.isEmpty) return null;
-    return Buku.fromMap(maps[0]);
-  }
-
   // Get favorites
   Future<List<Buku>> getFavoriteBuku() async {
     final db = await database;
@@ -139,11 +121,5 @@ class DatabaseHelper {
       await db.rawQuery('SELECT COUNT(*) FROM buku'),
     );
     return count == 0;
-  }
-
-  // Close database
-  Future<void> close() async {
-    final db = await database;
-    db.close();
   }
 }
