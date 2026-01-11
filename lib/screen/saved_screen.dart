@@ -4,6 +4,7 @@ import 'package:projectuas/helper/database_helper.dart';
 import 'package:projectuas/model/buku.dart';
 import 'package:projectuas/screen/ui/custom_form_field.dart';
 import 'package:projectuas/data/buku_data.dart';
+import 'package:projectuas/screen/detail_screen.dart';
 
 class SavedScreen extends StatefulWidget {
   const SavedScreen({super.key});
@@ -108,6 +109,16 @@ class _SavedScreen extends State<SavedScreen> {
                         final buku = displayedBooks[index];
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 16),
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(14),
+                            onTap: () {
+                              Navigator.push(
+                                context, 
+                                MaterialPageRoute(
+                                  builder: (context) => DetailScreen(buku: buku),
+                                ),
+                              );
+                            },
                           child: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 14),
                             decoration: BoxDecoration(
@@ -212,6 +223,7 @@ class _SavedScreen extends State<SavedScreen> {
                                 ),
                               ],
                             ),
+                          ),
                           ),
                         );
                       },
