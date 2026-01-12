@@ -4,6 +4,7 @@ import 'package:projectuas/helper/database_helper.dart';
 import 'package:projectuas/model/buku.dart';
 import 'package:projectuas/screen/ui/custom_form_field.dart';
 import 'package:projectuas/data/buku_data.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SavedScreen extends StatefulWidget {
   const SavedScreen({super.key});
@@ -33,6 +34,10 @@ class _SavedScreen extends State<SavedScreen> {
       savedBooks = favs;
       displayedBooks = List.from(savedBooks);
     });
+    
+    // Update saved books counter di SharedPreferences
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('savedBooks', savedBooks.length);
   }
 
   @override
@@ -276,6 +281,11 @@ class _SavedScreen extends State<SavedScreen> {
                 savedBooks.removeWhere((b) => b.id == bukuToDelete.id);
                 displayedBooks.removeAt(index);
               });
+              
+              // Update counter di SharedPreferences
+              final prefs = await SharedPreferences.getInstance();
+              await prefs.setInt('savedBooks', savedBooks.length);
+              
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
