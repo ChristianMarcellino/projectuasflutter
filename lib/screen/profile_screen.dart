@@ -94,11 +94,6 @@ class _ProfileScreenState extends State<ProfileScreen>
             children: [
               Row(
                 children: [
-                  IconButton(
-                    icon: Icon(Icons.arrow_back, color: Color(0xFFC084FC)),
-                    onPressed: () => Navigator.pop(context),
-                    padding: EdgeInsets.zero,
-                  ),
                   Expanded(
                     child: Align(
                       alignment: AlignmentDirectional.centerStart,

@@ -145,11 +145,6 @@ class _AlertScreenState extends State<AlertScreen> with WidgetsBindingObserver {
             children: [
               Row(
                 children: [
-                  IconButton(
-                    icon: Icon(Icons.arrow_back, color: Color(0xFFC084FC)),
-                    onPressed: () => Navigator.pop(context),
-                    padding: EdgeInsets.zero,
-                  ),
                   Expanded(
                     child: Align(
                       alignment: AlignmentDirectional.centerStart,
