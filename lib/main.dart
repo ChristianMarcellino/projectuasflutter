@@ -13,8 +13,6 @@ import 'package:shared_preferences/shared_preferences.dart'; // TAMBAHKAN
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  
-
   Future<void> _initializeDatabase() async {
     try {
       final dbHelper = DatabaseHelper();
@@ -30,7 +28,7 @@ void main() async {
         // Migrasi data dari static list ke database
         await dbHelper.insertBukuList(bukuList);
 
-        print('Data candi berhasil dimigrasikan ke database');
+        print('Data perpustakaan berhasil dimigrasikan ke database');
       } else {
         print('Database sudah memiliki data');
       }
@@ -90,17 +88,20 @@ class _MainScreenState extends State<MainScreen> {
   ];
   bool isSignedIn = false;
 
-  void checkSignedIn() async{
+  void checkSignedIn() async {
     final prefs = await SharedPreferences.getInstance();
     isSignedIn = prefs.getBool("isSignedIn") ?? false;
     if (!mounted) return;
-    if(!isSignedIn){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen(),));
+    if (!isSignedIn) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => LoginScreen()),
+      );
     }
   }
 
   @override
-   void initState () {
+  void initState() {
     super.initState();
     checkSignedIn();
   }
