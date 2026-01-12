@@ -4,7 +4,7 @@ import 'package:projectuas/helper/database_helper.dart';
 import 'package:projectuas/model/buku.dart';
 import 'package:projectuas/screen/ui/custom_form_field.dart';
 import 'package:projectuas/data/buku_data.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:projectuas/screen/detail_screen.dart';
 
 class SavedScreen extends StatefulWidget {
   const SavedScreen({super.key});
@@ -34,10 +34,6 @@ class _SavedScreen extends State<SavedScreen> {
       savedBooks = favs;
       displayedBooks = List.from(savedBooks);
     });
-    
-    // Update saved books counter di SharedPreferences
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt('savedBooks', savedBooks.length);
   }
 
   @override
@@ -55,8 +51,6 @@ class _SavedScreen extends State<SavedScreen> {
           children: [
             Row(
               children: [
-                Icon(Icons.arrow_back, color: Colors.purple),
-                SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -113,6 +107,16 @@ class _SavedScreen extends State<SavedScreen> {
                         final buku = displayedBooks[index];
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 16),
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(14),
+                            onTap: () {
+                              Navigator.push(
+                                context, 
+                                MaterialPageRoute(
+                                  builder: (context) => DetailScreen(buku: buku),
+                                ),
+                              );
+                            },
                           child: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 14),
                             decoration: BoxDecoration(
@@ -218,6 +222,7 @@ class _SavedScreen extends State<SavedScreen> {
                               ],
                             ),
                           ),
+                          ),
                         );
                       },
               ),
@@ -281,11 +286,6 @@ class _SavedScreen extends State<SavedScreen> {
                 savedBooks.removeWhere((b) => b.id == bukuToDelete.id);
                 displayedBooks.removeAt(index);
               });
-              
-              // Update counter di SharedPreferences
-              final prefs = await SharedPreferences.getInstance();
-              await prefs.setInt('savedBooks', savedBooks.length);
-              
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
