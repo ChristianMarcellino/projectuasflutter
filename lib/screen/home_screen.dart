@@ -6,6 +6,7 @@ import 'package:projectuas/screen/ui/custom_form_field.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:projectuas/helper/database_helper.dart';
 import 'package:projectuas/data/buku_data.dart'; // Untuk fallback
+import 'package:projectuas/data/alert_data.dart';
 
 enum SortType { oldest, latest, highestRating }
 
@@ -526,6 +527,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             book.isSaved =
                                                                 !book.isSaved;
                                                           });
+                                                          // Tambah alert ketika buku disimpan
+                                                          addAlert(
+                                                            title: 'Book Saved',
+                                                            message:
+                                                                '${book.name} has been added to your saved books',
+                                                            type: 'success',
+                                                          );
                                                         }
                                                       },
                                                       icon: Icons
