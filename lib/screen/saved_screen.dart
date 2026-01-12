@@ -278,7 +278,7 @@ class _SavedScreen extends State<SavedScreen> {
             onPressed: () async {
               // Persist change in database
               if (bukuToDelete.id != null) {
-                await _dbHelper.toggleFavorite(bukuToDelete.id!, false);
+                await _dbHelper.toggleFavorite(bukuToDelete.id!, true);
               }
 
               setState(() {
