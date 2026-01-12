@@ -51,8 +51,6 @@ class _SavedScreen extends State<SavedScreen> {
           children: [
             Row(
               children: [
-                Icon(Icons.arrow_back, color: Colors.purple),
-                SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
